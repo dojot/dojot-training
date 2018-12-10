@@ -1,0 +1,205 @@
+# Group Devices
+
+## Devices [/device]
+### Get the current list of devices [GET]
+Get the full list of devices with all their attributes
++ Request
+  + Headers
+    Authorization: Bearer JWT
++ Response 200 (application/json)
+  {
+    "devices":
+    [
+      {
+        "id" : "ff7e10eb-d95b-4ad2-ba3d-b3f9c2d68d91",
+        "name" : "sensor-08",
+        "attribute-1" : "value-1",
+        "attribute-2" : "value-2",
+        "protocol" : "mqtt",
+        "created" : "1498587680.981447",
+        "updated" : "1498587680.981447",
+        "persistence" : "592890a03127c2a540335c21"
+        "status" : "online"
+      },
+      {
+        "id" : "ffebd960-64b5-4af8-be5d-19be0cc526ac",
+        "name" : "temp-01",
+        "temperature" : "29C"
+        "status" : "offline",
+        "protocol" : "mqtt",
+        "created" : "1498587680.981447",
+        "updated" : "1498587680.981447",
+        "persistence" : "592890a03127c2a540335c30"
+      },
+      {
+        "id" : "ffebd960-64b5-4af8-be5d-19be0cc526ac",
+        "name" : "temp-02",
+        "temperature" : "20C",
+        "status" : "online",
+        "protocol" : "mqtt",
+        "created" : "1498587680.981447",
+        "updated" : "1498587680.981447",
+        "persistence" : "592890a03127c2a540335c50"
+      }
+    ]
+  }
+
+### Register a new device [POST]
+Register a new device
++ Request (application/json)
+  + Headers
+    Authorization: Bearer JWT
+  + Body
+  {
+    "id" : "ff7e10eb-d95b-4ad2-ba3d-b3f9c2d68d92",
+    "name" : "sensor-09",
+    "param-1" : "value-1",
+    "protocol" : "mqtt"
+  }
+
++ Response 200 (application/json)
+  {
+    "status" : "device created",
+    "device" : {
+      "id" : "ff7e10eb-d95b-4ad2-ba3d-b3f9c2d68d92",
+      "name" : "sensor-09",
+      "param-1" : "value-1",
+      "protocol" : "mqtt",
+      "status" : "warm-up",
+      "created" : "1498587680.981447",
+      "updated" : "1498587680.981447",
+      "persistence" : "592890a03127c2a540335c10"
+    }
+  }
++ Response 400 (application/json)
+  {
+    "status" : "Faied to parse payload as JSON"
+  }
++ Response 400 (application/json)
+  {
+    "status" : "unknown request format"
+  }
++ Response 400 (application/json)
+  {
+    "status" : "missing protocol"
+  }
++ Response 400 (application/json)
+  {
+    "status" : "device has missing fields"
+  }
++ Response 304 (application/json)
+  {
+    "status" : "missing authorization info"
+  }
++ Response 500 (application/json)
+  {
+    "status" : "failed to generate unique id"
+  }
++ Response 500 (application/json)
+  {
+    "status" : "failed to configure device"
+  }
+
+
+
+## Device info [/devices/{id}]
+Access a specific device
++ parameters
+  + id: (required, string) - The device ID
+
+### Delete device [DELETE]
+Removes a device
++ Response 200 (application/json)
+  {
+    "status" : "success"
+  }
++ Response 404 (application/json)
+  {
+    "status" : "given device was not found"
+  }
+
+### Get device info [GET]
+Retrieves all information from a specific device
++ Request
+  + Headers
+    Authorization: Bearer JWT
++ Response 200 (application/json)
+  {
+    "id" : "ff7e10eb-d95b-4ad2-ba3d-b3f9c2d68d91",
+    "name" : "sensor-08",
+    "attribute-1" : "value-1",
+    "attribute-2" : "value-2",
+    "status" : "online"
+    "protocol" : "mqtt",
+    "created" : "1498587680.981447",
+    "updated" : "1498587680.981447",
+    "persistence" : "592890a03127c2a540335c50"
+  }
++ Response 404 (application/json)
+  {
+    "status" : "given device was not found"
+  }
+
+### Update device info [PUT]
+Replaces all attributes from a specific device
++ Request
+  + Headers
+    Authorization: Bearer JWT
+  + Body
+  {
+    "id" : "ff7e10eb-d95b-4ad2-ba3d-b3f9c2d68d92",
+    "name" : "sensor-09",
+    "param-2" : "value-2",
+    "protocol" : "mqtt"
+  }
++ Response 400 (application/json)
+  {
+    "status" : "unknown request format"
+  }
+
++ Response 404 (application/json)
+  {
+    "status" : "given device was not found"
+  }
+
++ Response 500 (application/json)
+  {
+    "status" : "failed to update device configuration"
+  }
+
++ Response 200 (application/json)
+  {
+    "status" : "device updated",
+    "device" : {
+      "id" : "ff7e10eb-d95b-4ad2-ba3d-b3f9c2d68d92",
+      "name" : "sensor-09",
+      "param-2" : "value-2",
+      "protocol" : "mqtt",
+      "created" : "1498587680.981447",
+      "updated" : "1498588418.945318,
+      "persistence" : "592890a03127c2a540335c11"
+    }
+  }
+
+## Queries [/device/query]
+### Execute a query. The payload data can be part of a device (not necessarily the device id) [GET]
++ Request
+  + Headers
+    Authorization: Bearer JWT
+  + Body
+  {
+    "name" : "sensor-09"
+  }
+
++ Response 200 (application/json)
+  {
+    "name" : "sensor-09",
+    "param-2" : "value-2",
+    "protocol" : "mqtt",
+    "created" : "1498587680.981447",
+    "updated" : "1498588418.945318,
+  }
++ Response 404 (application/json)
+  {
+    "status" : "given device was not found"
+  }

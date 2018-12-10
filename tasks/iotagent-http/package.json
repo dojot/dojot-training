@@ -1,0 +1,20 @@
+{
+  "name": "iotagent-http",
+  "version": "1.0.0",
+  "description": "A simple IoT Agent HTTP",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "iotAgent",
+    "dojot"
+  ],
+  "author": "Raul Negreiros",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@dojot/iotagent-nodejs": "^2.1.0-alpha.1",
+    "express": "^4.16.4"
+  }
+}
+

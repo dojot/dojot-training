@@ -1,0 +1,15 @@
+{
+  "label": "device-templ",
+  "attrs": [
+    {
+      "label": "pollutants",
+      "type": "dynamic",
+      "value_type": "int"
+    },
+    {
+      "label": "oxygen",
+      "type": "dynamic",
+      "value_type": "int"
+    }
+  ]
+ }

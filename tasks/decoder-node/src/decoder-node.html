@@ -1,0 +1,82 @@
+<script type="text/x-red" data-template-name="decoder-node">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-inData"><i class="fa fa-edit"></i> <span>Data</span></label>
+        <input type="text" id="node-input-inData" placeholder="payload" style="width:250px;">
+        <input type="hidden" id="node-input-inDataFieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-outPollutants"><i class="fa fa-edit"></i> <span>Pollutants</span></label>
+        <input type="text" id="node-input-outPollutants" placeholder="payload" style="width:250px;">
+        <input type="hidden" id="node-input-outPollutantsFieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-outOxygen"><i class="fa fa-edit"></i> <span>Oxygen</span></label>
+        <input type="text" id="node-input-outOxygen" placeholder="payload" style="width:250px;">
+        <input type="hidden" id="node-input-outOxygenFieldType">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="decoder-node">
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('decoder-node', {
+        category: 'decoders',
+        color: "rgb(231, 231, 174)",
+        defaults: {
+            name: { value: "", required: false },
+
+            inData: { required: true, value: "payload", validate: RED.validators.typedInput("inFieldType") },
+            inDataFieldType: { value: "msg" },
+
+            outPollutants:  { required: true, value: "payload" },
+            outPollutantsFieldType: { value: "msg" },
+
+            outOxygen:  { required: true, value: "payload" },
+            outOxygenFieldType: { value: "msg" },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "cog.png",
+        label: function () {
+            return this.name || "decoder";
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            if (!this.inDataFieldType) {
+                this.inDataFieldType = 'msg';
+            }
+            $("#node-input-inData").typedInput({
+                default: 'msg',
+                types: ['msg'],
+                typeField: $("#node-input-inDataFieldType")
+            });
+
+
+            if (!this.outPollutantsFieldType) {
+                this.outPollutantsFieldType = 'msg';
+            }
+            $("#node-input-outPollutants").typedInput({
+                default: 'msg',
+                types: ['msg'],
+                typeField: $("#node-input-outPollutantsFieldType")
+            });
+
+            if (!this.outOxygenFieldType) {
+                this.outOxygenFieldType = 'msg';
+            }
+            $("#node-input-outOxygen").typedInput({
+                default: 'msg',
+                types: ['msg'],
+                typeField: $("#node-input-outOxygenFieldType")
+            });
+        },
+        oneditsave: function () { }
+    });
+</script>

@@ -1,0 +1,26 @@
+  mosca-redis:
+    image: <private-docker-registry>dojotraining/redis:training-122018
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m
+
+  iotagent-mqtt:
+    image: <private-docker-registry>dojotraining/iotagent-mosca:training-122018
+    depends_on:
+      - mosca-redis
+      - kafka
+      - data-broker
+      - auth
+    ports:
+      - 1883:1883
+      - 8883:8883
+    restart: always
+    environment:
+      DOJOT_SERVICE_MANAGEMENT: 'internal'
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m
+

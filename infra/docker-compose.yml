@@ -1,0 +1,51 @@
+version: '2.1'
+
+services:
+###########
+# Registry
+###########
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - 5009:5000
+    volumes:
+      - /opt/dojot_training/registry:/var/lib/registry
+    networks:
+      - default
+
+###########
+# Gogs
+###########
+  postgres:
+    image: postgres:9.5
+    restart: always
+    environment:
+      - "POSTGRES_USER=dojot"
+      - "POSTGRES_PASSWORD=dojot"
+      - "POSTGRES_DB=gogs"
+    volumes:
+      - "/opt/dojot_training/gogs-db:/var/lib/postgresql/data"
+    networks:
+      - gogs
+  gogs:
+    image: gogs/gogs:latest
+    restart: always
+    ports:
+      - "10022:22"
+      - "3000:3000"
+    links:
+      - postgres
+    environment:
+      - "RUN_CROND=true"
+    networks:
+      - gogs
+    volumes:
+      - "/opt/dojot_training/gogs:/data"
+    depends_on:
+      - postgres
+
+networks:
+    gogs:
+      driver: bridge
+

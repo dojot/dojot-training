@@ -1,0 +1,15 @@
+{
+  "label": "payload-templ",
+  "attrs": [
+    {
+      "label": "timestamp",
+      "type": "dynamic",
+      "value_type": "int"
+    },
+    {
+      "label": "data",
+      "type": "dynamic",
+      "value_type": "int"
+    }
+  ]
+ }
