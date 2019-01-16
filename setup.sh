@@ -8,7 +8,7 @@ function print_help() {
   echo "    -f | --flowbroker-node-registry <REGISTRY_IP>:<REGISTRY_PORT> : inform which is the registry used by the flowbroker"
   echo "  where OPTIONS could be:"
   echo "    -s | --shared-flowbroker-node-registry : if the docker register used by the flowbroker is shared"
-  echo "    -i | --image-docker-registry <REGISTRY_IP>:<REGISTRY_PORT> : if there is a docker register with the dojot's images"
+  echo "    -i | --image-docker-registry <REGISTRY_IP>:<REGISTRY_PORT> : Docker register with dojot's images. Defaults to docker hub."
 }
 
 
