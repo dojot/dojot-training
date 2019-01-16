@@ -22,23 +22,23 @@ curl -X POST ${DOJOT_HOST}:${IOTAGENT_PORT}/chemsen/readings \
 # Building a Flowbroker node
 First, build a container with the node
 ``` sh
-sudo docker build -t <private-docker-registry>dojot-training/decode-node<unique-id> .
+sudo docker build -t <flowbroker-node-docker-registry>dojot-training/decode-node<unique-id> .
 ```
 
 Push it to a docker registry
 ``` sh
-sudo docker push <private-docker-registry>dojot-training/decode-node<unique-id>
+sudo docker push <flowbroker-node-docker-registry>dojot-training/decode-node<unique-id>
 ```
 
 Now add the node in the Flowbroker:
 ```sh
 DOJOT_HOST="http://localhost:8000"
 JWT=$(curl -s -X POST ${DOJOT_HOST}/auth -H 'Content-Type:application/json' -d '{"username": "admin", "passwd" : "admin"}' | jq -r ".jwt")
-curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<private-docker-registry>dojot-training/decode-node<unique-id>", "id":"decode-node"}'
+curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<flowbroker-node-docker-registry>dojot-training/decode-node<unique-id>", "id":"decode-node"}'
 ```
 Make sure you have the `jq` installed on your system, otherwise set the `JWT` variable manually.
 
-If you want to remote the node, you can do it with the following commands:
+If you want to remove the node, you can do it with the following commands:
 ```sh
 DOJOT_HOST="http://localhost:8000"
 JWT=$(curl -s -X POST ${DOJOT_HOST}/auth -H 'Content-Type:application/json' -d '{"username": "admin", "passwd" : "admin"}' | jq -r ".jwt")

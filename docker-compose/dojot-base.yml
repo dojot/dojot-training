@@ -2,7 +2,7 @@ version: '2.1'
 services:
 
   history:
-    image: <private-docker-registry>dojotraining/history:training-122018
+    image: <image-docker-registry>dojotraining/history:training-122018
     restart: always
     depends_on:
       - mongodb
@@ -15,7 +15,7 @@ services:
         max-size: 100m
 
   persister:
-    image: <private-docker-registry>dojotraining/persister:training-122018
+    image: <image-docker-registry>dojotraining/persister:training-122018
     restart: always
     depends_on:
       - mongodb
@@ -31,7 +31,7 @@ services:
         max-size: 100m
 
   mongodb:
-    image: "<private-docker-registry>dojotraining/mongo:training-122018"
+    image: "<image-docker-registry>dojotraining/mongo:training-122018"
     restart: always
     user: "mongodb"
     logging:
@@ -40,7 +40,7 @@ services:
         max-size: 100m
 
   gui:
-    image: <private-docker-registry>dojotraining/gui:training-122018
+    image: <image-docker-registry>dojotraining/gui:training-122018
     restart: always
     logging:
       driver: json-file
@@ -48,7 +48,7 @@ services:
         max-size: 100m
 
   data-broker:
-    image: <private-docker-registry>dojotraining/data-broker:training-122018
+    image: <image-docker-registry>dojotraining/data-broker:training-122018
     restart: always
     depends_on:
       - kafka
@@ -59,7 +59,7 @@ services:
         max-size: 100m
 
   data-broker-redis:
-    image: <private-docker-registry>dojotraining/redis:training-122018
+    image: <image-docker-registry>dojotraining/redis:training-122018
     restart: always
     logging:
       driver: json-file
@@ -67,7 +67,7 @@ services:
         max-size: 100m
 
   device-manager-redis:
-    image: <private-docker-registry>dojotraining/redis:training-122018
+    image: <image-docker-registry>dojotraining/redis:training-122018
     restart: always
     logging:
       driver: json-file
@@ -75,7 +75,7 @@ services:
         max-size: 100m
 
   device-manager:
-    image: <private-docker-registry>dojotraining/device-manager:training-122018
+    image: <image-docker-registry>dojotraining/device-manager:training-122018
     restart: always
     environment:
       # TODO: Fill these env variables with suitable values
@@ -93,7 +93,7 @@ services:
         max-size: 100m
 
   auth-redis:
-    image: <private-docker-registry>dojotraining/redis:training-122018
+    image: <image-docker-registry>dojotraining/redis:training-122018
     restart: always
     logging:
       driver: json-file
@@ -101,7 +101,7 @@ services:
         max-size: 100m
 
   auth:
-    image: <private-docker-registry>dojotraining/auth:training-122018
+    image: <image-docker-registry>dojotraining/auth:training-122018
     restart: always
     depends_on:
       - apigw
@@ -123,7 +123,7 @@ services:
         max-size: 100m
 
   postgres:
-    image: "<private-docker-registry>dojotraining/postgres:training-122018"
+    image: "<image-docker-registry>dojotraining/postgres:training-122018"
     restart: always
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
@@ -136,7 +136,7 @@ services:
         max-size: 100m
 
   postgres-users:
-    image: "<private-docker-registry>dojotraining/postgres:training-122018"
+    image: "<image-docker-registry>dojotraining/postgres:training-122018"
     restart: on-failure
     command: >
       bash -c "createuser kong -d -h postgres -U postgres && createdb kong -U kong -h postgres"
@@ -149,7 +149,7 @@ services:
         max-size: 100m
 
   kong-migration:
-    image: <private-docker-registry>dojotraining/kong:training-122018
+    image: <image-docker-registry>dojotraining/kong:training-122018
     depends_on:
       postgres:
         condition: service_healthy
@@ -160,7 +160,7 @@ services:
     restart: on-failure
 
   apigw:
-    image: <private-docker-registry>dojotraining/kong:training-122018
+    image: <image-docker-registry>dojotraining/kong:training-122018
     restart: always
     depends_on:
       postgres:
@@ -181,7 +181,7 @@ services:
         max-size: 100m
 
   kong-config:
-    image: <private-docker-registry>dojotraining/curl:training-122018
+    image: <image-docker-registry>dojotraining/curl:training-122018
     entrypoint: /opt/kong.config.sh
     restart: on-failure
     depends_on:
@@ -190,7 +190,7 @@ services:
       - ./kong.config.sh:/opt/kong.config.sh:Z
 
   flowbroker-redis:
-    image: <private-docker-registry>dojotraining/redis:training-122018
+    image: <image-docker-registry>dojotraining/redis:training-122018
     restart: always
     logging:
       driver: json-file
@@ -198,7 +198,7 @@ services:
         max-size: 100m
 
   flowbroker:
-    image: <private-docker-registry>dojotraining/flowbroker:training-122018
+    image: <image-docker-registry>dojotraining/flowbroker:training-122018
     restart: always
     environment:
       DEPLOY_ENGINE: "docker"
@@ -217,7 +217,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:Z
 
   flowbroker-context-manager:
-    image: <private-docker-registry>dojotraining/flowbroker-context-manager:training-122018
+    image: <image-docker-registry>dojotraining/flowbroker-context-manager:training-122018
     restart: always
     environment:
       ZOOKEEPER_HOST: zookeeper
@@ -232,7 +232,7 @@ services:
       - flowbroker
 
   rabbitmq:
-    image: <private-docker-registry>dojotraining/rabbitmq:training-122018
+    image: <image-docker-registry>dojotraining/rabbitmq:training-122018
     restart: always
     logging:
       driver: json-file
@@ -240,7 +240,7 @@ services:
         max-size: 100m
 
   zookeeper:
-    image: "<private-docker-registry>dojotraining/zookeeper:training-122018"
+    image: "<image-docker-registry>dojotraining/zookeeper:training-122018"
     restart: always
     logging:
       driver: json-file
@@ -248,7 +248,7 @@ services:
         max-size: 100m
 
   kafka:
-    image: "<private-docker-registry>dojotraining/kafka:training-122018"
+    image: "<image-docker-registry>dojotraining/kafka:training-122018"
     depends_on:
       - zookeeper
     restart: always
