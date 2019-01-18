@@ -1,0 +1,10 @@
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - 5009:5000
+    volumes:
+      - /opt/dojot_training/registry:/var/lib/registry
+    networks:
+      - default
+
