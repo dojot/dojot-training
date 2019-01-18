@@ -35,21 +35,21 @@ To do the tasks, you will need:
 Instructions to install docker on Ubuntu can be found at https://docs.docker.com/install/linux/docker-ce/ubuntu/. Basically, you need to run:
 
 ``` sh
-$​​ sudo apt-get remove docker docker-engine docker.io
-$ ​sudo apt-get update
-$​​ sudo apt-get install \
+sudo apt-get remove docker docker-engine docker.io
+​sudo apt-get update
+sudo apt-get install \
 apt-transport-https \
 ca-certificates \
 curl \
 software-properties-common
-$​​ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-$​​ sudo apt-key fingerprint 0EBFCD88
-$​​ sudo add-apt-repository \
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository \
 "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
 $(lsb_release -cs) \
 stable"
-$​​ sudo apt-get update
-$​​ sudo apt-get install docker-ce
+sudo apt-get update
+sudo apt-get install docker-ce
 ```
 
 ### Allowing an insecure registry
@@ -73,10 +73,8 @@ sudo service docker restart
 Instructions to install docker compose on Ubuntu can be found at https://docs.docker.com/compose/install/​. Basically, you need to run:
 
 ``` sh
-$​​ sudo curl -L
-"https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(un
-ame -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-$​​ sudo chmod +x /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$​​ 
 ```
 
 ## Git
@@ -84,7 +82,7 @@ $​​ sudo chmod +x /usr/local/bin/docker-compose
 To install git:
 
 ``` sh
-$ sudo apt-get install git
+sudo apt-get install git
 ```
 
 # JQ
@@ -92,7 +90,7 @@ $ sudo apt-get install git
 To install jq:
 
 ``` sh
-$ sudo apt-get install jq
+sudo apt-get install jq
 ```
 
 ## MQTT Client
@@ -100,7 +98,7 @@ $ sudo apt-get install jq
 Our suggestion is to use mosquitto clients, but if you are familiar with other clients, feel free to use them. To install mosquitto clients: 
 
 ``` sh
-$ sudo apt-get install mosquitto-clients
+sudo apt-get install mosquitto-clients
 ```
 
 ## HTTP Client
@@ -109,14 +107,22 @@ Our suggestion is to use curl, but if you are familiar with other tools like pos
 
 
 ``` sh
-$ sudo apt-get install curl
+sudo apt-get install curl
 ```
 
 ## Javascript Editor
-Some of the hands-on will require to develop Javascript code. Our suggestion is to use vs code, but feel free a code editor of your preference. To install vs code:
+Some of the hands-on will require to develop Javascript code. Our suggestion is to use Visual Studio Code, but feel free a code editor of your preference.
+
+Instructions to install vs code can be found at https://code.visualstudio.com/docs/setup/linux. Basically, you need to run:
 
 ``` sh
-$ sudo apt-get install code
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install code # or code-insiders
 ```
 
 # Hands-on
@@ -246,7 +252,7 @@ There is a dummy iotagent-http at samples/iotagent-base. There, you will find:
 First, let's start this microservice:
 
 ``` sh
-cd sample/iotagent-http-base
+cd samples/iotagent-base
 sudo docker build -t dojot-training/iotagent-http .
 cd -
 ```

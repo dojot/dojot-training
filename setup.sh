@@ -87,7 +87,7 @@ if [ -z "${FLOWBROKER_NODE_REGISTRY}" ]; then
 fi
 cat docker-compose/network.yml >> ${DOCKER_COMPOSE_FILE}
 
-LOOKUP_DIRS="samples/ tasks/ docker-compose/"
+LOOKUP_DIRS="./README.md samples/ tasks/ docker-compose/"
 
 # replace the image docker registry
 if [ -n "${IMAGE_DOCKER_REGISTRY}" ] ; then
