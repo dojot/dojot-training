@@ -263,7 +263,7 @@ start it:
 ``` sh
 ./setup.sh -m http
 cd docker-compose
-sudo docker-compose up -d
+sudo docker-compose up --remove-orphans -d
 cd -
 ```
 
