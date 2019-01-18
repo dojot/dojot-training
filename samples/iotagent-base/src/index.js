@@ -38,6 +38,7 @@ iotAgent.init().then( () => {
     server.use(bodyParser.json());
 
     // handle HTTP post
+    // TODO: replace by your endpoint
     server.post('/test/data', (req, res) => {
 
         console.log(`Received HTTP message: $(JSON.stringify(req.body))`);
