@@ -252,7 +252,7 @@ There is a dummy iotagent-http at samples/iotagent-base. There, you will find:
 First, let's start this microservice:
 
 ``` sh
-cd sample/iotagent-http-base
+cd samples/iotagent-base
 sudo docker build -t dojot-training/iotagent-http .
 cd -
 ```
