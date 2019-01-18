@@ -73,10 +73,8 @@ sudo service docker restart
 Instructions to install docker compose on Ubuntu can be found at https://docs.docker.com/compose/install/​. Basically, you need to run:
 
 ``` sh
-$​​ sudo curl -L
-"https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(un
-ame -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-$​​ sudo chmod +x /usr/local/bin/docker-compose
+$​​ sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$​​ 
 ```
 
 ## Git
@@ -113,10 +111,18 @@ $ sudo apt-get install curl
 ```
 
 ## Javascript Editor
-Some of the hands-on will require to develop Javascript code. Our suggestion is to use vs code, but feel free a code editor of your preference. To install vs code:
+Some of the hands-on will require to develop Javascript code. Our suggestion is to use Visual Studio Code, but feel free a code editor of your preference.
+
+Instructions to install vs code can be found at https://code.visualstudio.com/docs/setup/linux. Basically, you need to run:
 
 ``` sh
-$ sudo apt-get install code
+$ curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+$ sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+$ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+$
+$ sudo apt-get install apt-transport-https
+$ sudo apt-get update
+$ sudo apt-get install code # or code-insiders
 ```
 
 # Hands-on
