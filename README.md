@@ -281,7 +281,7 @@ curl -X POST ${DOJOT_HOST}:${IOTAGENT_PORT}/test/data \
 -d '{ "timestamp": 1543449992, "data": 646, "device": "PINHR_003" }'
 ```
 
-if you check the logs again, you should see that this message was received.
+if you check the logs again, you should see that the message has been received.
 
 #### Step 2: Implement your iotagent-http for the water quality monitoring use case
 
