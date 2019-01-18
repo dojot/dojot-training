@@ -298,7 +298,7 @@ You just need to implement them.
 Once you've finished, you need to rebuild and restart the service:
 
 ``` sh
-cd samples/iotagent-http-base
+cd samples/iotagent-base
 sudo docker build -t dojot-training/iotagent-http .
 cd -
 cd docker-compose
