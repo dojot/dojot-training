@@ -57,6 +57,8 @@ services:
       driver: json-file
       options:
         max-size: 100m
+    environment:
+      DOJOT_SERVICE_MANAGEMENT: 'internal'
 
   data-broker-redis:
     image: <image-docker-registry>dojotraining/redis:training-122018
@@ -139,7 +141,18 @@ services:
     image: "<image-docker-registry>dojotraining/postgres:training-122018"
     restart: on-failure
     command: >
-      bash -c "createuser kong -d -h postgres -U postgres && createdb kong -U kong -h postgres"
+      bash -c "if ! psql -h postgres -U postgres -t -c '\du' | cut -d \| -f 1 | grep -qw kong; then
+                   echo 'creating user kong'
+                   createuser kong -d -h postgres -U postgres
+               else
+                   echo 'user kong exists'
+               fi
+               if ! psql -h postgres -U postgres -lqt | cut -d \| -f 1 | grep -qw kong; then
+                   echo 'creating database kong'
+                   createdb kong -U kong -h postgres
+               else
+                   echo 'database kong exists'
+               fi"
     depends_on:
       postgres:
         condition: service_healthy
@@ -203,6 +216,7 @@ services:
     environment:
       DEPLOY_ENGINE: "docker"
       FLOWBROKER_NETWORK: ${FLOWBROKER_NETWORK}
+      DOJOT_SERVICE_MANAGEMENT: 'internal'
     depends_on:
       - rabbitmq
       - kafka
