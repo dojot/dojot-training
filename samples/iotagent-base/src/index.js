@@ -34,14 +34,14 @@ iotAgent.init().then( () => {
     iotAgent.messenger.generateDeviceCreateEventForActiveDevices();
   
     // HTTP server
-    server = Express();
+    let server = Express();
     server.use(bodyParser.json());
 
     // handle HTTP post
     // TODO: replace by your endpoint
     server.post('/test/data', (req, res) => {
 
-        console.log(`Received HTTP message: $(JSON.stringify(req.body))`);
+        console.log(`Received HTTP message: ${JSON.stringify(req.body)}`);
 
         // TODO: validate the message.
         // res.status(400).send({'message': 'missing x attribute'});
@@ -66,11 +66,11 @@ iotAgent.init().then( () => {
     });
 
     // start HTTP server
-    this._server.listen(SERVER_PORT, () => {
+    server.listen(SERVER_PORT, () => {
         console.log(`IotAgent HTTP listening on port ${SERVER_PORT}!`);
     });
 
-}).catch( () => {
-    console.log('Failed to initialize the HTTP IoT Agent');
+}).catch( (error) => {
+    console.error(`Failed to initialize the HTTP IoT Agent (${error})`);
     process.exit(1);
 });
