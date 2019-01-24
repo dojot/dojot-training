@@ -1,11 +1,13 @@
-# About
+# dojot-training
+
+## About
 This repository is the workspace for the dojot's training.
 
 Here, you'll find instructions and recipes to support you.
 
-> This documentation contains some tags that is replaced when you run the setup.sh to set your workspace. So, after running this script, don't forget to reload the documentation. 
+> This documentation contains some tags that are replaced when you run the setup.sh to set your workspace. So, after running this script, don't forget to reload the documentation.
 
-# Prerequisites
+## Prerequisites
 
 To do the tasks, you will need:
 
@@ -29,9 +31,9 @@ To do the tasks, you will need:
 
 - JavaScript Editor
 
-# Setting up your Ubuntu machine
+## Setting up your Ubuntu machine
 
-## Docker
+### Docker
 Instructions to install docker on Ubuntu can be found at https://docs.docker.com/install/linux/docker-ce/ubuntu/. Basically, you need to run:
 
 ``` sh
@@ -58,26 +60,29 @@ This step is only required for a private docker registry without public certific
 Ask your tutor if you really need to run the following steps.
 
 1. Create or modify /etc/docker/daemon.json
+
 ``` sh
-{ 
+{
   "insecure-registries": [ "<private-docker-registry-ip>:<private-docker-registry-port>" ]
 }
 ```
 
 2. Restart docker daemon
+
 ``` sh
 sudo service docker restart
 ```
 
-## Docker Compose
-Instructions to install docker compose on Ubuntu can be found at https://docs.docker.com/compose/install/​. Basically, you need to run:
+### Docker Compose
+
+Instructions to install docker compose on Ubuntu can be found at [Docker Compose Install](https://docs.docker.com/compose/install/). Basically, you need to run:
 
 ``` sh
 sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-$​​ 
+sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-## Git
+### Git
 
 To install git:
 
@@ -85,7 +90,7 @@ To install git:
 sudo apt-get install git
 ```
 
-# JQ
+### JQ
 
 To install jq:
 
@@ -93,27 +98,27 @@ To install jq:
 sudo apt-get install jq
 ```
 
-## MQTT Client
+### MQTT Client
 
-Our suggestion is to use mosquitto clients, but if you are familiar with other clients, feel free to use them. To install mosquitto clients: 
+Our suggestion is to use mosquitto clients, but if you are familiar with other clients, feel free to use them. To install mosquitto clients:
 
 ``` sh
 sudo apt-get install mosquitto-clients
 ```
 
-## HTTP Client
+### HTTP Client
 
-Our suggestion is to use curl, but if you are familiar with other tools like postman, feel free to use them. To install curl: 
-
+Our suggestion is to use curl, but if you are familiar with other tools like postman, feel free to use them. To install curl:
 
 ``` sh
 sudo apt-get install curl
 ```
 
-## Javascript Editor
-Some of the hands-on will require to develop Javascript code. Our suggestion is to use Visual Studio Code, but feel free a code editor of your preference.
+### Javascript Editor
 
-Instructions to install vs code can be found at https://code.visualstudio.com/docs/setup/linux. Basically, you need to run:
+Some of the hands-on will require to develop Javascript code. Our suggestion is to use Visual Studio Code, but feel free to choose a code editor of your preference.
+
+Instructions to install vs code can be found at [VSCode Installation](https://code.visualstudio.com/docs/setup/linux). Basically, you need to run:
 
 ``` sh
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
@@ -125,7 +130,7 @@ sudo apt-get update
 sudo apt-get install code # or code-insiders
 ```
 
-# Hands-on
+## **Hands-on**
 
 ## Use Cases
 
@@ -134,8 +139,8 @@ sudo apt-get install code # or code-insiders
 A company of the cold-chain sector wants to carry out a proof of concept with the dojot platform.
 The company wants to monitor their refrigerated trucks (location and temperature) and records when:
 
- - The temperature reaches values ​​outside an acceptable range.
- - The truck leaves the planned route.
+- The temperature reaches values outside an acceptable range.
+- The truck leaves the planned route.
 
 It also wants to send messages from its operational center to the drivers. These notification messages are shown on a display in the trucks.
 
@@ -154,7 +159,6 @@ POST /chemsen/readings
    "data": 656,                       - pollutant = 00000010b = 2 | oxygenation = 10010000b = 144
    "device": "PINHR_003"              - unique device identifier
 }
-
 ```
 
 ## Tasks
@@ -215,7 +219,7 @@ To accomplish this task, do the following sub-tasks:
 
 4. Configure processing flows to register when the temperatures of the containers are out of range.
 
-5. Configure processing flows to register when the trucks leaves the planned routes. 
+5. Configure processing flows to register when the trucks leaves the planned routes.
 
 6. Send notifications from dojot to the devices.
 
@@ -226,7 +230,7 @@ To accomplish this task, do the following sub-tasks:
 9. [Extra] Retrieve the history of the devices' data using the api.
 
 10. [Extra] Retrieve the devices' data in real time (https://dojot.github.io/data-broker/apiary_latest.html#websockets)
- 
+
 ### Task 3: Develop an iot-agent for the water quality monitoring use case
 
 The goal of doing this task is to learn how to develop an iot-agent microservice. This is REQUIRED to integrate a device not supported by dojot.
@@ -305,6 +309,7 @@ cd docker-compose
 sudo docker-compose up -d
 cd -
 ```
+
 Check the logs to see if it's running.
 
 #### Step 3: Test your iotagent-http
@@ -312,7 +317,7 @@ Check the logs to see if it's running.
 Create the template and devices for the water quality monitoring use case. Then, generate some
 HTTP messages and validate if they are associated with the corresponding devices.
 
-#### Task 4: Develop a function node for the water quality monitoring use case
+### Task 4: Develop a function node for the water quality monitoring use case
 
 The goal here is to learn how to develop function nodes to extend the flowbroker microservice.
 
