@@ -133,7 +133,7 @@ PAYLOAD
 authConfig "user-service"
 
 # -- end auth service --
-# mashup/flows service configuration
+# flows service configuration
 
 (curl -o /dev/null ${kong}/apis -s -S -X POST \
     --header "Content-Type: application/json" \
@@ -146,17 +146,6 @@ authConfig "user-service"
 }
 PAYLOAD
 authConfig "flows"
-
-(curl -o /dev/null ${kong}/apis -s -S -X POST \
-    --header "Content-Type: application/json" \
-    -d @- ) <<PAYLOAD
-{
-    "name": "mashup",
-    "uris": ["/mashup"],
-    "strip_uri": true,
-    "upstream_url": "http://flowbroker:80"
-}
-PAYLOAD
 # authConfig "flows"
 
 # -- end mashup/flows --
@@ -185,16 +174,3 @@ authConfig "history"
  }
 PAYLOAD
 authConfig "ejbca-paths"
-
-# Alarm manager endpoints
-(curl -o /dev/null ${kong}/apis -sS -X POST \
-    --header "Content-Type: application/json" \
-    -d @- ) <<PAYLOAD
-{
-     "name": "alarm-manager-endpoints",
-     "uris": "/alarmmanager",
-     "strip_uri": false,
-     "upstream_url": "http://alarm-manager:8080/"
- }
-PAYLOAD
-authConfig "alarm-manager-endpoints"

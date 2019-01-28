@@ -187,7 +187,6 @@ services:
       KONG_PG_HOST: "postgres"
     volumes:
       - ./apigw/plugins/pep-kong:/plugins/pep-kong:Z
-      - ./apigw/plugins/mutualauthentication:/plugins/mutualauthentication:Z
     logging:
       driver: json-file
       options:
