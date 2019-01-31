@@ -24,7 +24,8 @@ services:
       - data-broker
     environment:
       FALCON_SETTINGS_MODULE: 'history.settings.docker'
-      DOJOT_SERVICE_MANAGEMENT: 'internal'
+      DOJOT_MANAGEMENT_TENANT: 'internal'
+      KAFKA_GROUP_ID: 'persister.group'
     logging:
       driver: json-file
       options:
@@ -59,6 +60,8 @@ services:
         max-size: 100m
     environment:
       DOJOT_SERVICE_MANAGEMENT: 'internal'
+      DOJOT_MANAGEMENT_TENANT: 'internal'
+      KAFKA_GROUP_ID: 'data-broker.group'
 
   data-broker-redis:
     image: <image-docker-registry>dojotraining/redis:training-20190131
