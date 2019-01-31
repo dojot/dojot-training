@@ -148,6 +148,17 @@ PAYLOAD
 authConfig "flows"
 # authConfig "flows"
 
+(curl -o /dev/null ${kong}/apis -s -S -X POST \
+    --header "Content-Type: application/json" \
+    -d @- ) <<PAYLOAD
+{
+    "name": "flows-assets",
+    "uris": ["/flows/icons"],
+    "strip_uri": true,
+    "upstream_url": "http://flowbroker:80/icons"
+}
+PAYLOAD
+
 # -- end mashup/flows --
 
 (curl -o /dev/null ${kong}/apis -s -S -X POST \
