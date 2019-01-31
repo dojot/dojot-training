@@ -1,5 +1,5 @@
   mosca-redis:
-    image: <image-docker-registry>dojotraining/redis:training-20190122
+    image: <image-docker-registry>dojotraining/redis:training-20190131
     restart: always
     logging:
       driver: json-file
@@ -7,7 +7,7 @@
         max-size: 100m
 
   iotagent-mqtt:
-    image: <image-docker-registry>dojotraining/iotagent-mosca:training-20190122
+    image: <image-docker-registry>dojotraining/iotagent-mosca:training-20190131
     depends_on:
       - mosca-redis
       - kafka
@@ -18,7 +18,8 @@
       - 8883:8883
     restart: always
     environment:
-      DOJOT_SERVICE_MANAGEMENT: 'internal'
+      DOJOT_MANAGEMENT_TENANT: 'internal'
+      KAFKA_GROUP_ID: 'data-broker.group'
     logging:
       driver: json-file
       options:
