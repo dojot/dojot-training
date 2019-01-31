@@ -7,6 +7,37 @@ Here, you'll find instructions and recipes to support you.
 
 > This documentation contains some tags that are replaced when you run the setup.sh to set your workspace. So, after running this script, don't forget to reload the documentation.
 
+## Table of Contents
+
+* [dojot-training](#dojot-training)
+  * [About](#about)
+  * [Table of Contents](#table-of-contents)
+  * [Prerequisites](#prerequisites)
+  * [Setting up your Ubuntu machine](#setting-up-your-ubuntu-machine)
+      * [Docker](#docker)
+      * [Allowing an insecure registry](#allowing-an-insecure-registry)
+      * [Docker Compose](#docker-compose)
+      * [Git](#git)
+      * [JQ](#jq)
+      * [MQTT Client](#mqtt-client)
+      * [HTTP Client](#http-client)
+      * [Javascript Editor](#javascript-editor)
+  * [<strong>Hands-on</strong>](#hands-on)
+  * [Use Cases](#use-cases)
+      * [Cold-chain monitoring](#cold-chain-monitoring)
+      * [Water quality monitoring](#water-quality-monitoring)
+  * [Tasks](#tasks)
+      * [Task 1: Start dojot's microservices for the cold-chain monitoring use case](#task-1-start-dojots-microservices-for-the-cold-chain-monitoring-use-case)
+      * [Task 2: Configure and simulate the cold-chain monitoring use case](#task-2-configure-and-simulate-the-cold-chain-monitoring-use-case)
+      * [Task 3: Develop an iot-agent for the water quality monitoring use case](#task-3-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
+        * [Step 1: Start a dummy iotagent-http](#step-1-start-a-dummy-iotagent-http)
+        * [Step 2: Implement your iotagent-http for the water quality monitoring use case](#step-2-implement-your-iotagent-http-for-the-water-quality-monitoring-use-case)
+        * [Step 3: Test your iotagent-http](#step-3-test-your-iotagent-http)
+      * [Task 4: Develop a function node for the water quality monitoring use case](#task-4-develop-a-function-node-for-the-water-quality-monitoring-use-case)
+        * [Step 1: Load a stub of the decoder node into flowbroker](#step-1-load-a-stub-of-the-decoder-node-into-flowbroker)
+        * [Step 2: Implement the decoder logic](#step-2-implement-the-decoder-logic)
+        * [Step 3: Test your decoder node](#step-3-test-your-decoder-node)
+
 ## Prerequisites
 
 To do the tasks, you will need:
