@@ -367,14 +367,15 @@ There is a stub for this microservice at samples/decoder-node-base. There, you w
 ├── README.md               - README file
 └── src
     ├── decoder-node.html   - the node html
-    └── index.js            - the decoder logic
+    ├── index.js            - the decoder logic
+    └── locales             - used by internationalization
 ```
 
 First, build the container:
 
 ``` sh
 cd samples/decoder-node-base
-sudo docker build -t <flowbroker-node-docker-registry>dojot-training/decoder-node<unique-id> .
+sudo docker build -t  <your dockerHub username>/decoder-node<unique-id> .
 cd -
 ```
 
@@ -382,7 +383,7 @@ Then, push it to the docker registry:
 
 ``` sh
 cd samples/decoder-node-base
-sudo docker push <flowbroker-node-docker-registry>dojot-training/decoder-node<unique-id>
+sudo docker push  <your dockerHub username>/decoder-node<unique-id>
 cd -
 ```
 
@@ -391,9 +392,13 @@ Now, load the node into the flowbroker:
 ```sh
 DOJOT_HOST="http://localhost:8000"
 JWT=$(curl -s -X POST ${DOJOT_HOST}/auth -H 'Content-Type:application/json' -d '{"username": "admin", "passwd" : "admin"}' | jq -r ".jwt")
-curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<flowbroker-node-docker-registry>dojot-training/decoder-node<unique-id>", "id":"decoder-node"}'
+curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<your dockerHub username>/decoder-node<unique-id>", "id":"decoder-node"}'
 ```
-Make sure you have the `jq` installed on your system, otherwise set the `JWT` variable manually.
+Make sure you have the `jq` and `curl`  installed on your system, otherwise set the `JWT` variable manually. You can install `jq` and `curl` on ubuntu with the following command:
+```
+sudo apt-get install jq
+sudo apt-get install curl
+```
 
 If you want to remove the node, run:
 
@@ -409,13 +414,13 @@ Now, you should be able to access the decoder node at the dojot's gui.
 Openning the file decoder-node-base/src/index.js, you  will see a TODO.
 You just need to implement it.
 
-Once you've finished, you need to rebuild the container and push it to the registry. 
+Once you've finished, you need to rebuild the container and push it to the registry.
 So, run:
 
 ``` sh
 cd samples/decoder-node-base
-sudo docker build -t <flowbroker-node-docker-registry>dojot-training/decoder-node<unique-id> .
-sudo docker push <flowbroker-node-docker-registry>dojot-training/decoder-node<unique-id>
+sudo docker build -t <your dockerHub username>/decoder-node<unique-id> .
+sudo docker push <your dockerHub username>/decoder-node<unique-id>
 cd -
 ```
 
@@ -425,7 +430,7 @@ Now, reloads the node into the flowbroker:
 DOJOT_HOST="http://localhost:8000"
 JWT=$(curl -s -X POST ${DOJOT_HOST}/auth -H 'Content-Type:application/json' -d '{"username": "admin", "passwd" : "admin"}' | jq -r ".jwt")
 curl -X DELETE -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node/decoder-node
-curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<flowbroker-node-docker-registry>dojot-training/decoder-node<unique-id>", "id":"decoder-node"}'
+curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<your dockerHub username>/decoder-node<unique-id>", "id":"decoder-node"}'
 ```
 
 #### Step 3: Test your decoder node
