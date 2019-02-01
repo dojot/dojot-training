@@ -1,0 +1,145 @@
+#################################################################
+# SAMPLES OF DOJOT API REQUESTS                                 #
+#################################################################
+export DOJOT_URL=http://127.0.0.1:8000
+# export JWT=
+
+#################################################################
+# GET JWT TOKEN                                                 #
+#################################################################
+curl -X POST ${DOJOT_URL}/auth \
+-H 'Content-Type:application/json' \
+-d '{"username": "admin", "passwd" : "admin"}'
+
+#################################################################
+# GET SOCKET.IO TOKEN                                           #
+#################################################################
+curl -X GET ${DOJOT_URL}/stream/socketio \
+-H "Authorization: Bearer ${JWT}"
+
+#################################################################
+# CREATE TEMPLATE                                               #
+#################################################################
+curl -X POST ${DOJOT_URL}/template \
+-H "Authorization: Bearer ${JWT}" \
+-H 'Content-Type:application/json' \
+-d '{"label": "ColdChainTemplate", 
+     "attrs": [
+                {"label": "protocol", "type": "meta", 
+                 "value_type": "string", "static_value": "mqtt"},
+                {"label": "truckID", "type": "static", 
+                 "value_type": "string", "static_value": "undefined"},
+                {"label": "temperature", "type": "dynamic",  "value_type": "float"},
+                {"label": "location", "type": "dynamic",  "value_type": "geo:point"},
+                {"label": "message",     "type": "actuator", "value_type": "string"}
+               ]}'
+
+#################################################################
+# GET ALL TEMPLATES                                             #
+# WARNING: MIGHT BE NECESSARY TO HANDLE PAGINATION              #
+#################################################################
+curl -X GET ${DOJOT_URL}/template \
+-H "Authorization: Bearer ${JWT}"
+
+#################################################################
+# GET A GIVEN TEMPLATE                                          #
+#################################################################
+curl -X GET ${DOJOT_URL}/template/57 \
+-H "Authorization: Bearer ${JWT}"
+
+#################################################################
+# DELETE a GIVEN TEMPLATE                                       #
+#################################################################
+curl -X DELETE ${DOJOT_URL}/template/57 \
+-H "Authorization: Bearer ${JWT}"
+
+#################################################################
+# CREATE DEVICE (WITHOUT SETTING STATIC ATTRIBUTE)              #
+#################################################################
+curl -X POST ${DOJOT_URL}/device \
+-H "Authorization: Bearer ${JWT}" \
+-H 'Content-Type:application/json' \
+-d '{
+        "templates": ["58"], 
+        "label": "Truck-1"
+     }'
+
+#################################################################
+# CREATE DEVICE (SETTING STATIC ATTRIBUTE)                      #
+#################################################################
+curl -X POST ${DOJOT_URL}/device \
+-H "Authorization: Bearer ${JWT}" \
+-H 'Content-Type:application/json' \
+-d '{
+        "templates": ["58"],
+        "label": "Truck-2", 
+        "attrs": [
+                    {
+                        "id": 268, 
+                        "label": "truckID", 
+                        "static_value": "2", 
+                        "template_id": "58", 
+                        "type": "static", 
+                        "value_type": "string"
+                     }
+                 ]
+    }'
+
+#################################################################
+# GET ALL DEVICES                                               #
+# WARNING: MIGHT BE NECESSARY TO HANDLE PAGINATION              #
+#################################################################
+curl -X GET ${DOJOT_URL}/device \
+-H "Authorization: Bearer ${JWT}" \
+-H 'Content-Type:application/json'
+
+#################################################################
+# GET A GIVEN DEVICE                                            #
+#################################################################
+curl -X GET ${DOJOT_URL}/device/24df10 \
+-H "Authorization: Bearer ${JWT}" \
+-H 'Content-Type:application/json'
+
+#################################################################
+# DELETE A GIVEN DEVICE                                         #
+#################################################################
+curl -X DELETE ${DOJOT_URL}/device/24df10 \
+-H "Authorization: Bearer ${JWT}" \
+-H 'Content-Type:application/json'
+
+#################################################################
+# SEND DATA FROM DOJOT TO DEVICE                                #
+#################################################################
+curl -X PUT \
+${DOJOT_URL}/device/f4c12a/actuate \
+-H "Authorization: Bearer ${JWT}" \
+-H 'Content-Type:application/json' \
+-d '{"attrs": {"message" : "Go back to the route"}}'
+
+#################################################################
+# GET DEVICE DATA HISTORY (ALL ATTRIBUTES/LAST 10 VALUES)       #
+#################################################################
+curl -X GET \
+"${DOJOT_URL}/history/device/f4c12a/history?lastN=10" \
+-H "Authorization: Bearer ${JWT}"
+
+#################################################################
+# GET DEVICE DATA HISTORY (ALL ATTRIBUTES/FROM A GIVEN DATE)    #
+#################################################################
+curl -X GET \
+"${DOJOT_URL}/history/device/f4c12a/history?dateFrom=02-01-2019" \
+-H "Authorization: Bearer ${JWT}"
+
+#################################################################
+# GET DEVICE DATA HISTORY (ALL ATTRIBUTES/IN A TIME WINDOW)#
+#################################################################
+curl -X GET \
+"${DOJOT_URL}/history/device/f4c12a/history?dateFrom=02-01-2019&dateTo=02-02-2019" \
+-H "Authorization: Bearer ${JWT}"
+
+#################################################################
+# GET DEVICE DATA HISTORY (A GIVEN ATTRIBUTE/LAST 10 VALUES)    #
+#################################################################
+curl -X GET \
+"${DOJOT_URL}/history/device/f4c12a/history?lastN=10&attr=temperature" \
+-H "Authorization: Bearer ${JWT}"
