@@ -14,19 +14,19 @@ iotAgent.init().then( () => {
 
     // Handle device.create event
     iotAgent.messenger.on('iotagent.device', 'device.create', (tenant, event) => {
-        console.log(`Received device.create event ${event} for tenant ${tenant}.`);
+        console.log(`Received device.create event ${JSON.stringify(event)} for tenant ${tenant}.`);
         // TODO handle this event
     });
     
     // Handle device.update event
     iotAgent.messenger.on('iotagent.device', 'device.update', (tenant, event) => { 
-        console.log(`Received device.update event ${event} for tenant ${tenant}.`);
+        console.log(`Received device.update event ${JSON.stringify(event)} for tenant ${tenant}.`);
         // TODO handle this event
     });
 
     // Handle device.remove event
     iotAgent.messenger.on('iotagent.device', 'device.remove', (tenant, event) => {
-        console.log(`Received device.update event ${event} for tenant ${tenant}.`);
+        console.log(`Received device.update event ${JSON.stringify(event)} for tenant ${tenant}.`);
         // TODO handle this event
     });
 
@@ -44,12 +44,12 @@ iotAgent.init().then( () => {
         console.log(`Received HTTP message: ${JSON.stringify(req.body)}`);
 
         // TODO: validate the message.
-        // res.status(400).send({'message': 'missing x attribute'});
+        // res.status(400).json({'message': 'missing x attribute'});
         // return;
 
 
         // TODO: validate if the message belongs to some device
-        // res.status(400).send('message': 'not found the device associated with this message');
+        // res.status(400).json({'message': 'not found the device associated with this message'});
         // return;
 
         // TODO: generate the internal message
