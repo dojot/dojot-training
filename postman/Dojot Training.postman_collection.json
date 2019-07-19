@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "128b1dc3-3065-4612-84f9-7cf8b90e62e6",
+		"name": "Dojot Training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Access Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"{{user}}\",\n\t\"passwd\" : \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}/auth",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Configuring Device Template",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"label\": \"Raspberry-Pi-Sense-Hat\", \n\t\"attrs\": [\n\t\t{\"label\": \"protocol\", \"type\": \"meta\", \"value_type\": \"string\", \"static_value\": \"mqtt\"},\n\t    {\"label\": \"serial\", \"type\": \"static\", \"value_type\": \"string\", \"static_value\": \"undefined\"},\n\t    {\"label\": \"temperature\", \"type\": \"dynamic\",  \"value_type\": \"float\"},\n\t    {\"label\": \"humidity\",    \"type\": \"dynamic\",  \"value_type\": \"float\"},\n\t    {\"label\": \"pressure\",    \"type\": \"dynamic\",  \"value_type\": \"float\"},\n\t    {\"label\": \"message\",     \"type\": \"actuator\", \"value_type\": \"string\"}\n\t]\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}/template",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"template"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Creating Device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"templates\": [\"{{template_id}}\"],\n\t\"label\": \"Raspberry-Pi\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}/device",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"device"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Retrieve History Data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/history/device/{{device_id}}/history?lastN={{lastN}}&attr={{attr}}&dateFrom={{dateFrom}}&dateTo={{dateTo}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"history",
+						"device",
+						"{{device_id}}",
+						"history"
+					],
+					"query": [
+						{
+							"key": "lastN",
+							"value": "{{lastN}}"
+						},
+						{
+							"key": "attr",
+							"value": "{{attr}}"
+						},
+						{
+							"key": "dateFrom",
+							"value": "{{dateFrom}}"
+						},
+						{
+							"key": "dateTo",
+							"value": "{{dateTo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Send Command to Device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"attrs\": {\n\t\t\"message\" : \"Treinamento dojot!\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}/device/{{device_id}}/actuate",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"device",
+						"{{device_id}}",
+						"actuate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
