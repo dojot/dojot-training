@@ -9,34 +9,34 @@ Here, you'll find instructions and recipes to support you.
 
 ## Table of Contents
 
-* [dojot-training](#dojot-training)
-  * [About](#about)
-  * [Table of Contents](#table-of-contents)
-  * [Prerequisites](#prerequisites)
-  * [Setting up your Ubuntu machine](#setting-up-your-ubuntu-machine)
-      * [Docker](#docker)
-      * [Allowing an insecure registry](#allowing-an-insecure-registry)
-      * [Docker Compose](#docker-compose)
-      * [Git](#git)
-      * [JQ](#jq)
-      * [MQTT Client](#mqtt-client)
-      * [HTTP Client](#http-client)
-      * [Javascript Editor](#javascript-editor)
-  * [<strong>Hands-on</strong>](#hands-on)
-  * [Use Cases](#use-cases)
-      * [Cold-chain monitoring](#cold-chain-monitoring)
-      * [Water quality monitoring](#water-quality-monitoring)
-  * [Tasks](#tasks)
-      * [Task 1: Start dojot's microservices for the cold-chain monitoring use case](#task-1-start-dojots-microservices-for-the-cold-chain-monitoring-use-case)
-      * [Task 2: Configure and simulate the cold-chain monitoring use case](#task-2-configure-and-simulate-the-cold-chain-monitoring-use-case)
-      * [Task 3: Develop an iot-agent for the water quality monitoring use case](#task-3-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
-        * [Step 1: Start a dummy iotagent-http](#step-1-start-a-dummy-iotagent-http)
-        * [Step 2: Implement your iotagent-http for the water quality monitoring use case](#step-2-implement-your-iotagent-http-for-the-water-quality-monitoring-use-case)
-        * [Step 3: Test your iotagent-http](#step-3-test-your-iotagent-http)
-      * [Task 4: Develop a function node for the water quality monitoring use case](#task-4-develop-a-function-node-for-the-water-quality-monitoring-use-case)
-        * [Step 1: Load a stub of the decoder node into flowbroker](#step-1-load-a-stub-of-the-decoder-node-into-flowbroker)
-        * [Step 2: Implement the decoder logic](#step-2-implement-the-decoder-logic)
-        * [Step 3: Test your decoder node](#step-3-test-your-decoder-node)
+- [dojot-training](#dojot-training)
+  - [About](#About)
+  - [Table of Contents](#Table-of-Contents)
+  - [Prerequisites](#Prerequisites)
+  - [Setting up your Ubuntu machine](#Setting-up-your-Ubuntu-machine)
+    - [Docker](#Docker)
+    - [Allowing an insecure registry](#Allowing-an-insecure-registry)
+    - [Docker Compose](#Docker-Compose)
+    - [Git](#Git)
+    - [JQ](#JQ)
+    - [MQTT Client](#MQTT-Client)
+    - [HTTP Client](#HTTP-Client)
+    - [Javascript Editor](#Javascript-Editor)
+  - [**Hands-on**](#Hands-on)
+  - [Use Cases](#Use-Cases)
+    - [Cold-chain monitoring](#Cold-chain-monitoring)
+    - [Water quality monitoring](#Water-quality-monitoring)
+  - [Tasks](#Tasks)
+    - [Task 1: Start dojot's microservices for the cold-chain monitoring use case](#Task-1-Start-dojots-microservices-for-the-cold-chain-monitoring-use-case)
+    - [Task 2: Configure and simulate the cold-chain monitoring use case](#Task-2-Configure-and-simulate-the-cold-chain-monitoring-use-case)
+    - [Task 3: Develop an iot-agent for the water quality monitoring use case](#Task-3-Develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
+      - [Step 1: Start a dummy iotagent-http](#Step-1-Start-a-dummy-iotagent-http)
+      - [Step 2: Implement your iotagent-http for the water quality monitoring use case](#Step-2-Implement-your-iotagent-http-for-the-water-quality-monitoring-use-case)
+      - [Step 3: Test your iotagent-http](#Step-3-Test-your-iotagent-http)
+    - [Task 4: Develop a function node for the water quality monitoring use case](#Task-4-Develop-a-function-node-for-the-water-quality-monitoring-use-case)
+      - [Step 1: Load a stub of the decoder node into flowbroker](#Step-1-Load-a-stub-of-the-decoder-node-into-flowbroker)
+      - [Step 2: Implement the decoder logic](#Step-2-Implement-the-decoder-logic)
+      - [Step 3: Test your decoder node](#Step-3-Test-your-decoder-node)
 
 ## Prerequisites
 
@@ -144,6 +144,8 @@ Our suggestion is to use curl, but if you are familiar with other tools like pos
 ``` sh
 sudo apt-get install curl
 ```
+
+If you use Postman, we have the collection and the environment used in this training available in the `postman` directory.
 
 ### Javascript Editor
 
