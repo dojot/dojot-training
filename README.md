@@ -77,6 +77,8 @@ Our suggestion is to use JQ with Curl, but if you are familiar with other tools 
 sudo apt-get install jq
 ```
 
+If you use Postman, we have the collection and the environment used in this training available in the `postman` directory.
+
 ### Javascript Editor
 
 Some of the hands-on will require to develop Javascript code. Our suggestion is to use Visual Studio Code, but feel free to choose a code editor of your preference.
