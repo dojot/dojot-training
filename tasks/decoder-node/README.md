@@ -1,6 +1,6 @@
 # About
 
-Stubs for buinding the decoder node, you will find:
+Stubs for building the decoder node, you will find:
 
 ``` sh
 .
