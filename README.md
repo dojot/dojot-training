@@ -371,6 +371,12 @@ There is a stub for this microservice at samples/decoder-node-base. There, you w
     └── locales             - used by internationalization
 ```
 
+Before login with your Docker ID to push images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+
+``` sh
+sudo docker login
+```
+
 First, build the container:
 
 ``` sh
@@ -379,7 +385,7 @@ sudo docker build -t  <your dockerHub username>/decoder-node<unique-id> .
 cd -
 ```
 
-Then, push it to the docker registry:
+Then, push it to the docker hub:
 
 ``` sh
 cd samples/decoder-node-base
