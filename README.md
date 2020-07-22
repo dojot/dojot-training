@@ -439,6 +439,13 @@ curl -X DELETE -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node/dec
 curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<your dockerHub username>/decoder-node<unique-id>", "id":"decoder-node"}'
 ```
 
+##### Tip: To view the logs from your remote node, your microsserviço, run:
+
+```sh
+sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
+
+```
+
 #### Step 3: Test your decoder node
 
-Create virtual devices to receive the decoded values and a processing flow for executing the decoder. Then, generate some HTTP messages for the devices and look at the virtual ones to see if the values appeared decoded.
+Create virtual devices to receive the decoded values and a processing flow for executing the decoder. Then, generate some HTTP or MQTT messages for the devices and look at the virtual ones to see if the values appeared decoded.

@@ -30,7 +30,7 @@ class DataHandler extends dojot.DataHandlerBase {
             'name': 'decoder-node',
             // This is usually the name of the node (as in npm) module
             'module': 'decoder-node',
-            'version': '0.0.1',
+            'version': '1.0.0',
         };
     }
 

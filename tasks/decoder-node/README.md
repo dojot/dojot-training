@@ -1,6 +1,6 @@
 # About
 
-Stubs for building the decoder node, you will find:
+In decoder node, you will find:
 
 ``` sh
 .
@@ -47,6 +47,11 @@ curl -H "Authorization: Bearer ${JWT}" http://localhost:8000/flows/v1/node -H 'c
 To remove the node in Dojot.
 ```sh
 curl -X DELETE -H "Authorization: Bearer ${JWT}" http://localhost:8000/flows/v1/node/decoder-node
+```
+##### Tip: To view the logs from your remote node, your microsserviço, run:
+
+```sh
+sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
 ```
 
 Now the decoder node will be available on `decoders` category into the FlowBroker Dojot's interface.
