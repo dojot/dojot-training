@@ -159,6 +159,8 @@ iotagent-http:
     ports:
       - 3124:3124
     restart: always
+    volumes:
+      - ../samples/iotagent-base/src:/dojot/nodejs/src
     environment:
       SERVER_PORT: 3124
     logging:
