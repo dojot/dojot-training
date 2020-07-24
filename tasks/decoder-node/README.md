@@ -1,6 +1,6 @@
 # About
 
-In decoder node base, you will find:
+In decoder node, you will find:
 
 ``` sh
 .

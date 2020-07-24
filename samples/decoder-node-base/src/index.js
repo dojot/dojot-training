@@ -1,7 +1,6 @@
 "use strict";
-
-var path = require('path');
-var dojot = require('@dojot/flow-node');
+const path = require('path');
+const dojot = require('@dojot/flow-node');
 
 // Sample node implementation
 class DataHandler extends dojot.DataHandlerBase {
@@ -35,15 +34,13 @@ class DataHandler extends dojot.DataHandlerBase {
         };
     }
 
+
     /**
-     * Returns object with locale data (for the given locale)
-     * @param  {[string]} locale Locale string, such as "en-US"
-     * @return {[object]}        Locale settings used by the module
+     * Returns full path to locales
+     * @returns {String} Path segments into an absolute path.
      */
-    getLocaleData() {
-        // This is just a sample copied over from node-red-contrib-rpe, as a sample
-        // A real implementation might want to parse the contents off a file
-        return {};
+    getLocalesPath() {
+        return path.resolve(__dirname, './locales');
     }
 
     /**
@@ -56,17 +53,17 @@ class DataHandler extends dojot.DataHandlerBase {
      *
      * @param  {[type]}       config   Node configuration to be used for this message
      * @param  {[type]}       message  Message to be processed
-     * @param  {Function}     callback Callback to call upon processing completion
-     * @return {[undefined]}
+     * @return {[Promise]}
      */
-    handleMessage(config, message, callback) {
+    handleMessage(config, message) {
         try {
 
             //TODO: decoder logic
-            
-            callback(undefined, [message]);
+            console.log("TODO", config, message);
+
+            return Promise.resolve([message]);
         } catch (error) {
-            callback(error);
+            return Promise.reject(error);
         }
     }
 }

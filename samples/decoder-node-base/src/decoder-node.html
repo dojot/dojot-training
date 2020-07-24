@@ -1,21 +1,21 @@
 <script type="text/x-red" data-template-name="decoder-node">
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="label.name"></label>
         <input type="text" id="node-input-name">
     </div>
     <div class="form-row">
-        <label for="node-input-inData"><i class="fa fa-edit"></i> <span>Data</span></label>
-        <input type="text" id="node-input-inData" placeholder="payload" style="width:250px;">
+        <label for="node-input-inData"><i class="fa fa-edit"></i> <span><span data-i18n="label.data"></span></label>
+        <input type="text" id="node-input-inData" data-i18n="[placeholder]label.payload" style="width:250px;">
         <input type="hidden" id="node-input-inDataFieldType">
     </div>
     <div class="form-row">
-        <label for="node-input-outPollutants"><i class="fa fa-edit"></i> <span>Pollutants</span></label>
-        <input type="text" id="node-input-outPollutants" placeholder="payload" style="width:250px;">
+        <label for="node-input-outPollutants"><i class="fa fa-edit"></i> <span><span data-i18n="label.pollutants"></span></label>
+        <input type="text" id="node-input-outPollutants" data-i18n="[placeholder]label.payload" style="width:250px;">
         <input type="hidden" id="node-input-outPollutantsFieldType">
     </div>
     <div class="form-row">
-        <label for="node-input-outOxygen"><i class="fa fa-edit"></i> <span>Oxygen</span></label>
-        <input type="text" id="node-input-outOxygen" placeholder="payload" style="width:250px;">
+        <label for="node-input-outOxygen"><i class="fa fa-edit"></i> <span><span data-i18n="label.oxygen"></span></label>
+        <input type="text" id="node-input-outOxygen" data-i18n="[placeholder]label.payload" style="width:250px;">
         <input type="hidden" id="node-input-outOxygenFieldType">
     </div>
 </script>
@@ -25,7 +25,7 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('decoder-node', {
-        category: 'decoders',
+        category: RED._("sample/decoder-node:category"),
         color: "rgb(231, 231, 174)",
         defaults: {
             name: { value: "", required: false },
@@ -33,18 +33,19 @@
             inData: { required: true, value: "payload", validate: RED.validators.typedInput("inFieldType") },
             inDataFieldType: { value: "msg" },
 
-            outPollutants:  { required: true, value: "payload" },
+            outPollutants: { required: true, value: "payload" },
             outPollutantsFieldType: { value: "msg" },
 
-            outOxygen:  { required: true, value: "payload" },
+            outOxygen: { required: true, value: "payload" },
             outOxygenFieldType: { value: "msg" },
         },
         inputs: 1,
         outputs: 1,
         icon: "cog.png",
         label: function () {
-            return this.name || "decoder";
+            return this.name || RED._('sample/decoder-node:title');
         },
+        paletteLabel: RED._('sample/decoder-node:title'),
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
