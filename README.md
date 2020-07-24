@@ -439,7 +439,7 @@ curl -X DELETE -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node/dec
 curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "content-type: application/json" -d '{"image": "<your dockerHub username>/decoder-node<unique-id>", "id":"decoder-node"}'
 ```
 
-##### Tip: To view the logs from your remote node, your microsserviço, run:
+##### Tip: To view the logs from your remote node run:
 
 ```sh
 sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")

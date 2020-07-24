@@ -48,7 +48,7 @@ To remove the node in Dojot.
 ```sh
 curl -X DELETE -H "Authorization: Bearer ${JWT}" http://localhost:8000/flows/v1/node/decoder-node
 ```
-##### Tip: To view the logs from your remote node, your microsserviço, run:
+##### Tip: To view the logs from your remote node run:
 
 ```sh
 sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
