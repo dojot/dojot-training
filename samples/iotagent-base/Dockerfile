@@ -1,4 +1,4 @@
-FROM <image-docker-registry>dojotraining/dojot-training:training-122018
+FROM dojotraining/dojot-training:training-122018
 
 WORKDIR /dojot/nodejs
 

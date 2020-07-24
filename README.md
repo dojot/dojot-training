@@ -46,7 +46,7 @@ To do the tasks, you will need:
 
 - User with sudo permissions
 
-- Connection with the Docker Hub or any other Docker Registry that contains dojot's docker images.
+- Connection with the Docker Hub or that contains dojot's docker images.
 
 - Docker > 17.12
 
@@ -54,64 +54,11 @@ To do the tasks, you will need:
 
 - Git
 
-- JQ
-
-- MQTT Client
-
 - HTTP Client
 
 - JavaScript Editor
 
 ## Setting up your Ubuntu machine
-
-### Docker
-Instructions to install docker on Ubuntu can be found at https://docs.docker.com/install/linux/docker-ce/ubuntu/. Basically, you need to run:
-
-``` sh
-sudo apt-get remove docker docker-engine docker.io
-​sudo apt-get update
-sudo apt-get install \
-apt-transport-https \
-ca-certificates \
-curl \
-software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo apt-key fingerprint 0EBFCD88
-sudo add-apt-repository \
-"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-$(lsb_release -cs) \
-stable"
-sudo apt-get update
-sudo apt-get install docker-ce
-```
-
-### Allowing an insecure registry
-
-This step is only required for a private docker registry without public certificates.
-Ask your tutor if you really need to run the following steps.
-
-1. Create or modify /etc/docker/daemon.json
-
-``` sh
-{
-  "insecure-registries": [ "<private-docker-registry-ip>:<private-docker-registry-port>" ]
-}
-```
-
-2. Restart docker daemon
-
-``` sh
-sudo service docker restart
-```
-
-### Docker Compose
-
-Instructions to install docker compose on Ubuntu can be found at [Docker Compose Install](https://docs.docker.com/compose/install/). Basically, you need to run:
-
-``` sh
-sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
 
 ### Git
 
@@ -119,22 +66,6 @@ To install git:
 
 ``` sh
 sudo apt-get install git
-```
-
-### JQ
-
-To install jq:
-
-``` sh
-sudo apt-get install jq
-```
-
-### MQTT Client
-
-Our suggestion is to use mosquitto clients, but if you are familiar with other clients, feel free to use them. To install mosquitto clients:
-
-``` sh
-sudo apt-get install mosquitto-clients
 ```
 
 ### HTTP Client
@@ -165,18 +96,6 @@ sudo apt-get install code # or code-insiders
 
 ## Use Cases
 
-### Cold-chain monitoring
-
-A company of the cold-chain sector wants to carry out a proof of concept with the dojot platform.
-The company wants to monitor their refrigerated trucks (location and temperature) and records when:
-
-- The temperature reaches values outside an acceptable range.
-- The truck leaves the planned route.
-
-It also wants to send messages from its operational center to the drivers. These notification messages are shown on a display in the trucks.
-
-Messages from device to dojot and vice-versa are sent through MQTT protocol.
-
 ### Water quality monitoring
 
 A company produces an IoT device with pollutant and oxygenation level detectors. It will install several of them along a river near a factory to assess the water treatment. Due to the simplicity of the device, it sends the data corresponding to the two measurements (pollutant and oxygenation) in a 16-bit message. Each value is encoded in 8 bits. The data is sent hourly to a gateway that relays it to dojot via HTTP protocol.
@@ -196,71 +115,13 @@ POST /chemsen/readings
 
 ### Task 1: Start dojot's microservices for the cold-chain monitoring use case
 
-First of all, you need to generate the docker-compose.yml with dojot's microservices. For this, run:
+First of all, you need clone the docker-compose repository:
 
 ``` sh
-./setup.sh -m mqtt
-```
-
-This will create docker-compose/docker-compose.yml with mqtt iot-agent enabled.
-
-Then, start the dojot's microsevices:
-
-``` sh
-cd docker-compose
-sudo docker-compose up -d
+git https://github.com/dojot/docker-compose
+git checkout v0.4.2 -b v0.4.2
 cd -
 ```
-
-Wait for some seconds and run:
-
-``` sh
-sudo docker ps
-```
-
-All dojot's microservices should be running. If you want to stop them, run:
-
-``` sh
-cd docker-compose
-sudo docker-compose down
-cd -
-```
-
-### Task 2: Configure and simulate the cold-chain monitoring use case
-
-The goal of doing this task is to learn how to use dojot's gui and api. 
-
-Before starting, take a look at:
-
-- https://dojotdocs.readthedocs.io/en/latest/using-web-interface.html
-
-- https://dojotdocs.readthedocs.io/en/latest/using-api-interface.html
-
-- https://dojotdocs.readthedocs.io/en/latest/flow.html
-
-- https://dojotdocs.readthedocs.io/en/latest/components-and-apis.html#exposed-apis
-
-To accomplish this task, do the following sub-tasks:
-
-1. Create a template for the truck's sensors (gps, thermometer) and actuator (display). Try out both gui and api.
-
-2. Instantiate three devices. Try out both gui and api.
-
-3. Generate MQTT data for the devices.
-
-4. Configure processing flows to register when the temperatures of the containers are out of range.
-
-5. Configure processing flows to register when the trucks leaves the planned routes.
-
-6. Send notifications from dojot to the devices.
-
-7. [Extra] Change the template to include a luminosity sensor.
-
-8. [Extra] Configure processing flows to detect, based on the luminosity sensors, if the container's doors are opened on unexpected areas.
-
-9. [Extra] Retrieve the history of the devices' data using the api.
-
-10. [Extra] Retrieve the devices' data in real time (https://dojot.github.io/data-broker/apiary_latest.html#websockets)
 
 ### Task 3: Develop an iot-agent for the water quality monitoring use case
 
@@ -292,12 +153,30 @@ sudo docker build -t dojot-training/iotagent-http .
 cd -
 ```
 
-Then you need to regenerate the docker-compose.yml, to include this new microservice, and
+Then you need to add the text above to docker-compose.yml, to include this new microservice, and
 start it:
 
+iotagent-http:
+    image: dojot-training/iotagent-http
+    depends_on:
+      - kafka
+      - data-broker
+      - auth
+    ports:
+      - 3124:3124
+    restart: always
+    environment:
+      SERVER_PORT: 3124
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m
+
+
+
 ``` sh
-./setup.sh -m http
 cd docker-compose
+pico docker-compose.yaml
 sudo docker-compose up --remove-orphans -d
 cd -
 ```

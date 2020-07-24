@@ -1,3 +1,0 @@
-networks:
-  flowbroker:
-    name: ${FLOWBROKER_NETWORK}
