@@ -24,11 +24,11 @@ Here, you'll find instructions and recipes to support you.
   * [Use Cases](#use-cases)
       * [Water quality monitoring](#water-quality-monitoring)
   * [Tasks](#tasks)
-      * [Task 1: Develop an iot-agent for the water quality monitoring use case](#task-3-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
+      * [Task 1: Develop an iot-agent for the water quality monitoring use case](#task-1-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
         * [Step 1: Start a dummy iotagent-http](#step-1-start-a-dummy-iotagent-http)
         * [Step 2: Implement your iotagent-http for the water quality monitoring use case](#step-2-implement-your-iotagent-http-for-the-water-quality-monitoring-use-case)
         * [Step 3: Test your iotagent-http](#step-3-test-your-iotagent-http)
-      * [Task 2: Develop a function node for the water quality monitoring use case](#task-4-develop-a-function-node-for-the-water-quality-monitoring-use-case)
+      * [Task 2: Develop a function node for the water quality monitoring use case](#task-2-develop-a-function-node-for-the-water-quality-monitoring-use-case)
         * [Step 1: Load a stub of the decoder node into flowbroker](#step-1-load-a-stub-of-the-decoder-node-into-flowbroker)
         * [Step 2: Implement the decoder logic](#step-2-implement-the-decoder-logic)
         * [Step 3: Test your decoder node](#step-3-test-your-decoder-node)
@@ -108,7 +108,7 @@ POST /chemsen/readings
 
 ## Tasks
 
-### Task 1: Start dojot's microservices for the cold-chain monitoring use case
+### Task 1: Develop an iot-agent for the water quality monitoring use case
 
 First of all, you need clone the docker-compose repository:
 
@@ -117,8 +117,6 @@ git https://github.com/dojot/docker-compose
 git checkout v0.4.2 -b v0.4.2
 cd -
 ```
-
-### Task 3: Develop an iot-agent for the water quality monitoring use case
 
 The goal of doing this task is to learn how to develop an iot-agent microservice. This is REQUIRED to integrate a device not supported by dojot.
 
