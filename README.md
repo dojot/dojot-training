@@ -156,6 +156,7 @@ cd -
 Then you need to add the text above to docker-compose.yml, to include this new microservice, and
 start it:
 
+```
 iotagent-http:
     image: dojot-training/iotagent-http
     depends_on:
@@ -171,7 +172,7 @@ iotagent-http:
       driver: json-file
       options:
         max-size: 100m
-
+```
 
 
 ``` sh
