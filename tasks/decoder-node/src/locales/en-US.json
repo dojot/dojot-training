@@ -1,0 +1,11 @@
+{
+  "title": "decoder",
+  "label": {
+    "name": "Name",
+    "data": "Data",
+    "pollutants": "Pollutants",
+    "payload": "payload",
+    "oxygen": "Oxygen"
+  },
+  "category": "decoders"
+}

@@ -1,0 +1,11 @@
+{
+  "title": "decodificador",
+  "label": {
+    "name": "Nome",
+    "data": "Dados",
+    "pollutants": "Poluentes",
+    "payload": "payload",
+    "oxygen": "Oxigênio"
+  },
+  "category": "decodificadores"
+}
