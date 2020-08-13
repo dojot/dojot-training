@@ -1,8 +1,19 @@
-FROM dojotraining/dojot-training:training-122018
+FROM node:8.14.0-alpine as basis
 
-WORKDIR /dojot/nodejs
+WORKDIR /opt/nodejs
 
-ENV LD_LIBRARY_PATH=/dojot/nodejs/node_modules/node-rdkafka/build/deps/
+RUN apk --no-cache add gcc g++ musl-dev make python bash zlib-dev
+
+COPY package.json ./package.json
+RUN npm install
+
+
+FROM node:8.14.0-alpine
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini", "--"]
+
+COPY --from=basis /opt/nodejs /opt/nodejs
+WORKDIR /opt/nodejs
 
 COPY src ./src
 CMD ["node", "src/index.js"]
