@@ -5,8 +5,6 @@ This repository is the workspace for the dojot's training.
 
 Here, you'll find instructions and recipes to support you.
 
-> This documentation contains some tags that are replaced when you run the setup.sh to set your workspace. So, after running this script, don't forget to reload the documentation.
-
 ## Table of Contents
 
 * [dojot-training](#dojot-training)
@@ -41,7 +39,7 @@ To do the tasks, you will need:
 
 - User with sudo permissions
 
-- Connection with the Docker Hub or that contains dojot's docker images.
+- Connection with the Docker Hub or any other Docker Registry that contains dojot's docker images.
 
 - Docker > 17.12
 
@@ -69,6 +67,14 @@ Our suggestion is to use curl, but if you are familiar with other tools like pos
 
 ``` sh
 sudo apt-get install curl
+```
+
+### JSON processor (command-line)
+
+Our suggestion is to use JQ with Curl, but if you are familiar with other tools like postman, feel free to use them. To install JQ:
+
+``` sh
+sudo apt-get install jq
 ```
 
 ### Javascript Editor
@@ -100,9 +106,9 @@ A sample message is given bellow:
 ```
 POST /chemsen/readings
 {
-  "timestamp": 1543449992,            - unix timestamp: 11/29/2018 - 12:06am
-   "data": 656,                       - pollutant = 00000010b = 2 | oxygenation = 10010000b = 144
-   "device": "PINHR_003"              - unique device identifier
+  "timestamp": 1543449992,           - unix timestamp: 11/29/2018 - 12:06am
+  "data": 656,                       - pollutant = 00000010b = 2 | oxygenation = 10010000b = 144
+  "device": "PINHR_003"              - unique device label identifier
 }
 ```
 
@@ -110,11 +116,12 @@ POST /chemsen/readings
 
 ### Task 1: Develop an iot-agent for the water quality monitoring use case
 
-First of all, you need clone the docker-compose repository:
+First of all, you need clone the docker-compose repository, see more in https://dojotdocs.readthedocs.io/en/v0.4.2/installation-guide.html#installation:
 
 ``` sh
-git https://github.com/dojot/docker-compose
-git checkout v0.4.2 -b v0.4.2
+git clone https://github.com/dojot/docker-compose
+cd docker-compose
+sudo docker-compose up -d
 cd -
 ```
 
@@ -134,15 +141,15 @@ There is a dummy iotagent-http at samples/iotagent-base. There, you will find:
 ├── package.json      - javascript dependencies
 ├── README.md         - README file
 └── src
-    └── index.js       - the microservice code
+    └── index.js      - the microservice code
 
 ```
 
-First, let's start this microservice:
+First, let's build the docker image for this microservice:
 
 ``` sh
 cd samples/iotagent-base
-sudo docker build -t dojot-training/iotagent-http .
+sudo docker build -t iotagent-http .
 cd -
 ```
 
@@ -157,10 +164,8 @@ iotagent-http:
       - data-broker
       - auth
     ports:
-      - 3124:3124
+      - 3124:3124 # the correct way is set this path
     restart: always
-    volumes:
-      - ../samples/iotagent-base/src:/dojot/nodejs/src
     environment:
       SERVER_PORT: 3124
     logging:
@@ -169,11 +174,12 @@ iotagent-http:
         max-size: 100m
 ```
 
+NOTE: Here we are exposing port 3124 to be accessed without going through the api gateway, kong, that is, without authorization, the correct thing is to create a route in kong and remove `ports: - 3124: 3124` from the code above. About routes in kong, see more at https://dojotdocs.readthedocs.io/en/v0.4.2/internal-communication.html#auth-api-gateway-kong  and in addition a tip. Tip: You can simply add the route in the kong.config.sh file that is inside the dojot docker-compose repository and don't forget to call the authConfig function for the route to be authenticated. Obversation for the values in kong.config.sh to be valid you need to restart the service with `sudo docker-compose restart kong-config`.
 
 ``` sh
 cd docker-compose
-pico docker-compose.yaml
-sudo docker-compose up --remove-orphans -d
+gedit docker-compose.yaml # vi docker-compose.yaml or  vscode ocker-compose.yaml or another editor
+sudo docker-compose up -d iotagent-http --remove-orphans
 cd -
 ```
 
@@ -181,7 +187,7 @@ Wait some seconds and check its log:
 
 ``` sh
 cd docker-compose
-sudo docker-compose logs -f iotagent-http
+sudo docker-compose logs -t -f iotagent-http
 cd -
 ```
 
@@ -192,7 +198,7 @@ To send a HTTP message to this agent, run:
 ``` sh
 DOJOT_HOST="127.0.0.1"
 IOTAGENT_PORT=3124
-curl -X POST ${DOJOT_HOST}:${IOTAGENT_PORT}/test/data \
+curl -X POST ${DOJOT_HOST}:${IOTAGENT_PORT}/chemsen/readings \
 -H 'Content-Type:application/json' \
 -d '{ "timestamp": 1543449992, "data": 646, "device": "PINHR_003" }'
 ```
@@ -212,7 +218,7 @@ cd samples/iotagent-base
 sudo docker build -t dojot-training/iotagent-http .
 cd -
 cd docker-compose
-sudo docker-compose up -d
+sudo docker-compose up -d iotagent-http
 cd -
 ```
 
@@ -223,7 +229,7 @@ Check the logs to see if it's running.
 Create the template and devices for the water quality monitoring use case. Then, generate some
 HTTP messages and validate if they are associated with the corresponding devices.
 
-### Task 4: Develop a function node for the water quality monitoring use case
+### Task 2: Develop a function node for the water quality monitoring use case
 
 The goal here is to learn how to develop function nodes to extend the flowbroker microservice.
 
@@ -293,7 +299,7 @@ Now, you should be able to access the decoder node at the dojot's gui.
 #### Step 2: Implement the decoder logic
 
 Openning the file decoder-node-base/src/index.js, you  will see a TODO.
-You just need to implement it.
+You just need to implement it. See about bitwise in https://www.w3schools.com/js/js_bitwise.asp .
 
 Once you've finished, you need to rebuild the container and push it to the registry.
 So, run:

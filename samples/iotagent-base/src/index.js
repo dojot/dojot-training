@@ -9,7 +9,7 @@ const SERVER_PORT = process.env.SERVER_PORT || 3124;
 
 // Initialize the IoT Agent.
 let iotAgent = new IotAgent.IoTAgent();
-iotAgent.init().then( () => {
+iotAgent.init().then(() => {
     console.log('Succeeded to start the HTTP IoT Agent ');
 
     // Handle device.create event
@@ -17,9 +17,9 @@ iotAgent.init().then( () => {
         console.log(`Received device.create event ${JSON.stringify(event)} for tenant ${tenant}.`);
         // TODO handle this event
     });
-    
+
     // Handle device.update event
-    iotAgent.messenger.on('iotagent.device', 'device.update', (tenant, event) => { 
+    iotAgent.messenger.on('iotagent.device', 'device.update', (tenant, event) => {
         console.log(`Received device.update event ${JSON.stringify(event)} for tenant ${tenant}.`);
         // TODO handle this event
     });
@@ -32,14 +32,13 @@ iotAgent.init().then( () => {
 
     // force device.create events for devices created before starting the iotagent
     iotAgent.messenger.generateDeviceCreateEventForActiveDevices();
-  
+
     // HTTP server
     let server = Express();
     server.use(bodyParser.json());
 
     // handle HTTP post
-    // TODO: replace by your endpoint
-    server.post('/test/data', (req, res) => {
+    server.post('/chemsen/readings', (req, res) => {
 
         console.log(`Received HTTP message: ${JSON.stringify(req.body)}`);
 
@@ -70,7 +69,7 @@ iotAgent.init().then( () => {
         console.log(`IotAgent HTTP listening on port ${SERVER_PORT}!`);
     });
 
-}).catch( (error) => {
+}).catch((error) => {
     console.error(`Failed to initialize the HTTP IoT Agent (${error})`);
     process.exit(1);
 });
