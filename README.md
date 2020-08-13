@@ -110,7 +110,7 @@ POST /chemsen/readings
 
 ### Task 1: Develop an iot-agent for the water quality monitoring use case
 
-First of all, you need clone the docker-compose repository:
+First of all, you need clone the docker-compose repository, see more in https://dojotdocs.readthedocs.io/en/latest/installation-guide.html:
 
 ``` sh
 git https://github.com/dojot/docker-compose
