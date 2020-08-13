@@ -114,7 +114,6 @@ First of all, you need clone the docker-compose repository:
 
 ``` sh
 git https://github.com/dojot/docker-compose
-git checkout v0.4.2 -b v0.4.2
 cd -
 ```
 
@@ -159,8 +158,8 @@ iotagent-http:
     ports:
       - 3124:3124
     restart: always
-    volumes:
-      - ../samples/iotagent-base/src:/dojot/nodejs/src
+    #volumes:
+    #  - ../samples/iotagent-base/src:/dojot/nodejs/src
     environment:
       SERVER_PORT: 3124
     logging:
