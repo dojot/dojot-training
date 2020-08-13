@@ -41,7 +41,7 @@ To do the tasks, you will need:
 
 - User with sudo permissions
 
-- Connection with the Docker Hub or that contains dojot's docker images.
+- Connection with the Docker Hub or any other Docker Registry that contains dojot's docker images.
 
 - Docker > 17.12
 
