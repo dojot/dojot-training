@@ -113,7 +113,7 @@ POST /chemsen/readings
 First of all, you need clone the docker-compose repository:
 
 ``` sh
-git https://github.com/dojot/docker-compose
+git clone https://github.com/dojot/docker-compose
 git checkout v0.4.2 -b v0.4.2
 cd -
 ```
