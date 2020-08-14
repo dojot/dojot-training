@@ -26,7 +26,7 @@ RUN apk --no-cache add \
     libsasl \
     lz4-libs
       
-COPY --from=basis /opt/nodejs /opt/nodejs
+COPY --from=base /opt/nodejs /opt/nodejs
 
 COPY src ./src
 CMD ["node", "src/index.js"]
