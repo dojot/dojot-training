@@ -209,7 +209,7 @@ iotagent-http:
         max-size: 100m
 ```
 
-NOTE: Here we are exposing port 3124 to be accessed without going through the api gateway, kong, that is, without authorization, the correct thing is to create a route in kong and remove `ports: - 3124: 3124` from the code above. About routes in kong, see more at https://dojotdocs.readthedocs.io/en/v0.4.2/internal-communication.html#auth-api-gateway-kong. And in addition a tip. Tip: You can simply add the route to `http://iotagent-http:3124`in the `kong.config.sh` file that is inside the dojot `docker-compose` repository and don't forget to call the `authConfig` function for the route to be authenticated. Obversation, for the values in kong.config.sh to be used you need to restart the service with `sudo docker-compose restart kong-config`.
+NOTE: Here we are exposing port 3124 to be accessed without going through the api gateway, kong, that is, without authorization, the correct thing is to create a route in kong and remove `ports: - 3124: 3124` from the code above. About routes in kong, see more at https://dojotdocs.readthedocs.io/en/v0.4.2/internal-communication.html#auth-api-gateway-kong. And in addition a Tip: You can simply add the route to `http://iotagent-http:3124`in the `kong.config.sh` file that is inside the dojot `docker-compose` repository and don't forget to call the `authConfig` function for the route to be authenticated. Besides that for changes in kong.config.sh to be applied you need to restart the service with `sudo docker-compose restart kong-config`.
 
 ``` sh
 cd docker-compose
