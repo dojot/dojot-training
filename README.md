@@ -183,38 +183,38 @@ There is a dummy iotagent-http at samples/iotagent-base. There, you will find:
 First, let's build the docker image for this microservice:
 
 ``` sh
-cd samples/iotagent-base
+cd dojot-training/samples/iotagent-base
 sudo docker build -t iotagent-http .
 cd -
 ```
 
-Then you need to add the text below to docker-compose.yml, to include this new microservice, and
-start it:
+Then you need to add the service `iotagent-http:`, as below, in the file docker-compose.yml inside `services:` and start it:
 
 ```
-iotagent-http:
-    image: dojot-training/iotagent-http
-    depends_on:
-      - kafka
-      - data-broker
-      - auth
-    ports:
-      - 3124:3124
-    restart: always
-    environment:
-      SERVER_PORT: 3124
-    logging:
-      driver: json-file
-      options:
-        max-size: 100m
+
+  iotagent-http:
+      image: iotagent-http
+      depends_on:
+        - kafka
+        - data-broker
+        - auth
+      ports:
+        - 3124:3124
+      restart: always
+      environment:
+        SERVER_PORT: 3124
+      logging:
+        driver: json-file
+        options:
+          max-size: 100m
 ```
 
 NOTE: Here we are exposing port 3124 to be accessed without going through the api gateway, kong, that is, without authorization, the correct thing is to create a route in kong and remove `ports: - 3124: 3124` from the code above. About routes in kong, see more at https://dojotdocs.readthedocs.io/en/v0.4.2/internal-communication.html#auth-api-gateway-kong. And in addition a Tip: You can simply add the route to `http://iotagent-http:3124`in the `kong.config.sh` file that is inside the dojot `docker-compose` repository and don't forget to call the `authConfig` function for the route to be authenticated. Besides that for changes in kong.config.sh to be applied you need to restart the service with `sudo docker-compose restart kong-config`.
 
 ``` sh
 cd docker-compose
-gedit docker-compose.yaml # vi docker-compose.yaml, pico docker-compose.yaml or another editor
-sudo docker-compose up -d iotagent-http --remove-orphans
+code docker-compose.yml # vi docker-compose.yml, pico docker-compose.yml or another editor
+sudo docker-compose up -d iotagent-http
 cd -
 ```
 
@@ -249,8 +249,8 @@ You just need to implement them.
 Once you've finished, you need to rebuild and restart the service:
 
 ``` sh
-cd samples/iotagent-base
-sudo docker build -t dojot-training/iotagent-http .
+cd dojot-training/samples/iotagent-base
+sudo docker build -t iotagent-http .
 cd -
 cd docker-compose
 sudo docker-compose up -d iotagent-http
