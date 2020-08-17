@@ -114,6 +114,19 @@ POST /chemsen/readings
 }
 ```
 
+Before starting, take a look at:
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/using-api-interface.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/flow.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/iotagent-architecture.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/components-and-apis.html#exposed-apis-api-gateway
+
+
 ## Tasks
 
 ### Task 1: Develop an iot-agent for the water quality monitoring use case
@@ -126,10 +139,25 @@ cd docker-compose
 sudo docker-compose up -d
 cd -
 ```
+Wait for some seconds and run:
+
+``` sh
+cd docker-compose
+sudo docker ps
+cd -
+```
+
+All dojot's microservices should be running. If you want to stop them, run:
+
+``` sh
+cd docker-compose
+sudo docker-compose down
+cd -
+```
 
 The goal of doing this task is to learn how to develop an iot-agent microservice. This is REQUIRED to integrate a device not supported by dojot.
 
-Before starting, go to https://github.com/dojot/iotagent-nodejs and take a look at the documentation.
+Take a look at https://github.com/dojot/iotagent-nodejs
 
 If you dont't know what to do, don't panic; just follow the steps listed bellow.
 
@@ -180,7 +208,7 @@ NOTE: Here we are exposing port 3124 to be accessed without going through the ap
 
 ``` sh
 cd docker-compose
-gedit docker-compose.yaml # vi docker-compose.yaml or  vscode ocker-compose.yaml or another editor
+gedit docker-compose.yaml # vi docker-compose.yaml, pico docker-compose.yaml or another editor
 sudo docker-compose up -d iotagent-http --remove-orphans
 cd -
 ```
