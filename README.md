@@ -13,10 +13,10 @@ Here, you'll find instructions and recipes to support you.
   * [Prerequisites](#prerequisites)
   * [Setting up your Ubuntu machine](#setting-up-your-ubuntu-machine)
       * [Docker](#docker)
-      * [Allowing an insecure registry](#allowing-an-insecure-registry)
       * [Docker Compose](#docker-compose)
       * [Git](#git)
       * [HTTP Client](#http-client)
+      * [JQ](#json-processor-command-line)
       * [Javascript Editor](#javascript-editor)
   * [<strong>Hands-on</strong>](#hands-on)
   * [Use Cases](#use-cases)
@@ -53,6 +53,13 @@ To do the tasks, you will need:
 
 ## Setting up your Ubuntu machine
 
+### Docker
+Instructions to install docker on Ubuntu can be found at https://docs.docker.com/install/linux/docker-ce/ubuntu/.
+
+### Docker Compose
+
+Instructions to install docker compose on Ubuntu can be found at [Docker Compose Install](https://docs.docker.com/compose/install/).
+
 ### Git
 
 To install git:
@@ -71,7 +78,7 @@ sudo apt-get install curl
 
 ### JSON processor (command-line)
 
-Our suggestion is to use JQ with Curl, but if you are familiar with other tools like postman, feel free to use them. To install JQ:
+Our suggestion is to use JQ with Curl. To install JQ:
 
 ``` sh
 sudo apt-get install jq
@@ -142,9 +149,7 @@ cd -
 Wait for some seconds and run:
 
 ``` sh
-cd docker-compose
 sudo docker ps
-cd -
 ```
 
 All dojot's microservices should be running. If you want to stop them, run:
@@ -204,7 +209,7 @@ iotagent-http:
         max-size: 100m
 ```
 
-NOTE: Here we are exposing port 3124 to be accessed without going through the api gateway, kong, that is, without authorization, the correct thing is to create a route in kong and remove `ports: - 3124: 3124` from the code above. About routes in kong, see more at https://dojotdocs.readthedocs.io/en/v0.4.2/internal-communication.html#auth-api-gateway-kong  and in addition a tip. Tip: You can simply add the route in the kong.config.sh file that is inside the dojot docker-compose repository and don't forget to call the authConfig function for the route to be authenticated. Obversation for the values in kong.config.sh to be valid you need to restart the service with `sudo docker-compose restart kong-config`.
+NOTE: Here we are exposing port 3124 to be accessed without going through the api gateway, kong, that is, without authorization, the correct thing is to create a route in kong and remove `ports: - 3124: 3124` from the code above. About routes in kong, see more at https://dojotdocs.readthedocs.io/en/v0.4.2/internal-communication.html#auth-api-gateway-kong  and in addition a tip. Tip: You can simply add the route in the `kong.config.sh` file that is inside the dojot `docker-compose` repository and don't forget to call the `authConfig` function for the route to be authenticated. Obversation, for the values in kong.config.sh to be used you need to restart the service with `sudo docker-compose restart kong-config`.
 
 ``` sh
 cd docker-compose
