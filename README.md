@@ -246,7 +246,7 @@ if you check the logs again, you should see that the message has been received.
 #### Step 2: Implement your iotagent-http for the water quality monitoring use case
 
 Now, you need to customize the dummy iotagent-http for handling the use case.
-Openning the file iotagent-http/src/index.js, you  will see a list of TODOs.
+Openning the file samples/iotagent-http/src/index.js, you  will see a list of TODOs.
 You just need to implement them.
 
 Once you've finished, you need to rebuild and restart the service:
@@ -336,7 +336,7 @@ Now, you should be able to access the decoder node at the dojot's gui.
 
 #### Step 2: Implement the decoder logic
 
-Openning the file decoder-node-base/src/index.js, you  will see a TODO.
+Openning the file samples/decoder-node-base/src/index.js, you  will see a TODO.
 You just need to implement it. See about bitwise in https://www.w3schools.com/js/js_bitwise.asp .
 
 Once you've finished, you need to rebuild the container and push it to the registry.
