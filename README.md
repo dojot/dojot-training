@@ -320,9 +320,7 @@ cd -
 Then, push it to the docker hub:
 
 ``` sh
-cd dojot-training/samples/decoder-node-base
 sudo docker push  <your dockerHub username>/decoder-node<unique-id>
-cd -
 ```
 
 Now, load the node into the flowbroker:
