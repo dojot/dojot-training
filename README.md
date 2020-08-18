@@ -49,6 +49,8 @@ To do the tasks, you will need:
 
 - HTTP Client
 
+- JQ
+
 - JavaScript Editor
 
 ## Setting up your Ubuntu machine
