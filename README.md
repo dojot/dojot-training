@@ -366,6 +366,12 @@ sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>
 
 ##### Tip: To kill the remote node's container if it becomes active even after the dojot stops:
 
+To check if containers are still active:
+
+``` sh
+sudo docker ps -a
+```
+
 **Avoid using this, use this only if really necessary.**
 
 ```sh
