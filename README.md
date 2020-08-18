@@ -35,7 +35,7 @@ Here, you'll find instructions and recipes to support you.
 
 To do the tasks, you will need:
 
-- A machine with Ubuntu 18.04 with at least 4GB RAM
+- A machine with Ubuntu 18.04 or 20.04 with at least 4GB RAM
 
 - User with sudo permissions
 
