@@ -149,7 +149,7 @@ cd -
 Wait for some seconds and run:
 
 ``` sh
-sudo docker ps
+sudo docker ps -a
 ```
 
 All dojot's microservices should be running. If you want to stop them, run:
