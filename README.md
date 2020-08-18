@@ -362,7 +362,14 @@ curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "c
 
 ```sh
 sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
+```
 
+##### Tip: To kill the remote node's container if it becomes active even after the dojot stops:
+
+**Avoid using this, use this only if really necessary.**
+
+```sh
+sudo docker rm -f $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
 ```
 
 #### Step 3: Test your decoder node
