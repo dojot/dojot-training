@@ -372,6 +372,7 @@ To check if containers are still active:
 sudo docker ps -a
 ```
 
+Killing the  remote node's container:
 **Avoid using this, use this only if really necessary.**
 
 ```sh
