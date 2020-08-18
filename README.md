@@ -54,11 +54,23 @@ To do the tasks, you will need:
 ## Setting up your Ubuntu machine
 
 ### Docker
-Instructions to install docker on Ubuntu can be found at https://docs.docker.com/install/linux/docker-ce/ubuntu/.
+Instructions to install docker on Ubuntu can be found at [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
+
+Checking docker version:
+
+``` sh
+sudo docker -v
+```
 
 ### Docker Compose
 
 Instructions to install docker compose on Ubuntu can be found at [Docker Compose Install](https://docs.docker.com/compose/install/).
+
+Checking docker-compose version:
+
+``` sh
+sudo docker-compose -v
+```
 
 ### Git
 
@@ -191,7 +203,6 @@ cd -
 Then you need to add the service `iotagent-http:`, as below, in the file docker-compose.yml inside `services:` and start it:
 
 ```
-
   iotagent-http:
       image: iotagent-http
       depends_on:
