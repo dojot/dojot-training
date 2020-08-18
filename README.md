@@ -296,7 +296,7 @@ sudo docker login
 First, build the container:
 
 ``` sh
-cd samples/decoder-node-base
+cd dojot-training/samples/decoder-node-base
 sudo docker build -t  <your dockerHub username>/decoder-node<unique-id> .
 cd -
 ```
@@ -304,7 +304,7 @@ cd -
 Then, push it to the docker hub:
 
 ``` sh
-cd samples/decoder-node-base
+cd dojot-training/samples/decoder-node-base
 sudo docker push  <your dockerHub username>/decoder-node<unique-id>
 cd -
 ```
@@ -340,7 +340,7 @@ Once you've finished, you need to rebuild the container and push it to the regis
 So, run:
 
 ``` sh
-cd samples/decoder-node-base
+cd dojot-training/samples/decoder-node-base
 sudo docker build -t <your dockerHub username>/decoder-node<unique-id> .
 sudo docker push <your dockerHub username>/decoder-node<unique-id>
 cd -
