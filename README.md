@@ -90,6 +90,8 @@ Our suggestion is to use curl, but if you are familiar with other tools like pos
 sudo apt-get install curl
 ```
 
+If you use Postman, we have the collection and the environment used in this training available in the [`postman`](./postman) directory.
+
 ### JSON processor (command-line)
 
 Our suggestion is to use JQ with Curl. To install JQ:
@@ -97,8 +99,6 @@ Our suggestion is to use JQ with Curl. To install JQ:
 ``` sh
 sudo apt-get install jq
 ```
-
-If you use Postman, we have the collection and the environment used in this training available in the `postman` directory.
 
 ### Javascript Editor
 
