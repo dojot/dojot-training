@@ -219,14 +219,15 @@ To accomplish this task, do the following sub-tasks:
 
 TIP: If you want to stop dojot's microservices, run:
 
-
-Note: But if you stop dojot, you will lose all settings for template, device, flows and history data. In order not to lose the settings of template, device, flows, see more about import and export at: https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html#import-and-export
-
 ``` sh
 cd docker-compose
 sudo docker-compose down
 cd -
 ```
+
+Note: But if you stop dojot, you will lose all settings for template, device, flows and history data. In order not to lose the settings of template, device, flows, see more about import and export at: https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html#import-and-export
+
+
 
 ### Task 2: Develop an iot-agent for the water quality monitoring use case
 
