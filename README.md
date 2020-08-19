@@ -8,8 +8,6 @@ Here, you'll find instructions and recipes to support you.
 ## Table of Contents
 
 * [dojot-training](#dojot-training)
-  * [About](#about)
-  * [Table of Contents](#table-of-contents)
   * [Prerequisites](#prerequisites)
   * [Setting up your Ubuntu machine](#setting-up-your-ubuntu-machine)
       * [Docker](#docker)
@@ -17,16 +15,19 @@ Here, you'll find instructions and recipes to support you.
       * [Git](#git)
       * [HTTP Client](#http-client)
       * [JQ](#json-processor-command-line)
+      * [MQTT Client](#mqtt-client)
       * [Javascript Editor](#javascript-editor)
   * [<strong>Hands-on</strong>](#hands-on)
   * [Use Cases](#use-cases)
+      * [Cold-chain monitoring](#cold-chain-monitoring)
       * [Water quality monitoring](#water-quality-monitoring)
   * [Tasks](#tasks)
-      * [Task 1: Develop an iot-agent for the water quality monitoring use case](#task-1-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
+      * [Task 1: Configure and simulate the cold-chain monitoring use case](#task-1-configure-and-simulate-the-cold-chain-monitoring-use-case)
+      * [Task 2: Develop an iot-agent for the water quality monitoring use case](#task-2-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
         * [Step 1: Start a dummy iotagent-http](#step-1-start-a-dummy-iotagent-http)
         * [Step 2: Implement your iotagent-http for the water quality monitoring use case](#step-2-implement-your-iotagent-http-for-the-water-quality-monitoring-use-case)
         * [Step 3: Test your iotagent-http](#step-3-test-your-iotagent-http)
-      * [Task 2: Develop a function node for the water quality monitoring use case](#task-2-develop-a-function-node-for-the-water-quality-monitoring-use-case)
+      * [Task 3: Develop a function node for the water quality monitoring use case](#task-3-develop-a-function-node-for-the-water-quality-monitoring-use-case)
         * [Step 1: Load a stub of the decoder node into flowbroker](#step-1-load-a-stub-of-the-decoder-node-into-flowbroker)
         * [Step 2: Implement the decoder logic](#step-2-implement-the-decoder-logic)
         * [Step 3: Test your decoder node](#step-3-test-your-decoder-node)
@@ -50,6 +51,8 @@ To do the tasks, you will need:
 - HTTP Client
 
 - JQ
+
+- MQTT Client
 
 - JavaScript Editor
 
@@ -100,6 +103,16 @@ Our suggestion is to use JQ with Curl. To install JQ:
 sudo apt-get install jq
 ```
 
+### MQTT Client
+
+Our suggestion is to use mosquitto clients, but if you are familiar with other clients, feel free to use them. To install mosquitto clients:
+
+``` sh
+sudo apt-get install mosquitto-clients
+```
+
+NOTE: Some Linux distributions, Debian-based Linux distributions in particular, have two packages for mosquitto - one containing tools to access it (i.e. mosquitto_pub and mosquitto_sub for publishing messages and subscribing to topics) and another one containing the MQTT broker too. In this training, only the tools from package mosquitto-clients on Debian-based Linux distributions are going to be used. Please check if MQTT broker is not running before starting dojot (by running commands like ps aux | grep mosquitto) to avoid port conflicts.
+
 ### Javascript Editor
 
 Some of the hands-on will require to develop Javascript code. Our suggestion is to use Visual Studio Code, but feel free to choose a code editor of your preference.
@@ -119,6 +132,18 @@ sudo apt-get install code # or code-insiders
 ## **Hands-on**
 
 ## Use Cases
+
+### Cold-chain monitoring
+
+A company of the cold-chain sector wants to carry out a proof of concept with the dojot platform.
+The company wants to monitor their refrigerated trucks (location and temperature) and records when:
+
+- The temperature reaches values outside an acceptable range.
+- The truck leaves the planned route.
+
+It also wants to send messages from its operational center to the drivers. These notification messages are shown on a display in the trucks.
+
+Messages from device to dojot and vice-versa are sent through MQTT protocol.
 
 ### Water quality monitoring
 
@@ -145,12 +170,65 @@ Before starting, take a look at:
 
 - https://dojotdocs.readthedocs.io/en/v0.4.2/iotagent-architecture.html
 
-- https://dojotdocs.readthedocs.io/en/v0.4.2/components-and-apis.html#exposed-apis-api-gateway
+- https://dojotdocs.readthedocs.io/en/v0.4.2/components-and-apis.html
 
 
 ## Tasks
 
-### Task 1: Develop an iot-agent for the water quality monitoring use case
+### Task 1: Configure and simulate the cold-chain monitoring use case
+
+First of all, you need clone the docker-compose repository, see more in https://dojotdocs.readthedocs.io/en/v0.4.2/installation-guide.html#installation:
+
+``` sh
+git clone https://github.com/dojot/docker-compose
+cd docker-compose
+sudo docker-compose up -d
+cd -
+```
+
+Wait for some seconds and run:
+
+``` sh
+sudo docker ps -a
+```
+
+The goal of doing this task is to learn how to use dojot's gui and api.
+
+To accomplish this task, do the following sub-tasks:
+
+1. Create a template for the truck's sensors (gps, thermometer) and actuator (display). Try out both gui and api.
+
+2. Instantiate three devices. Try out both gui and api.
+
+3. Generate MQTT data for the devices.
+
+4. Configure processing flows to register when the temperatures of the containers are out of range.
+
+5. Configure processing flows to register when the trucks leaves the planned routes.
+
+6. Send notifications from dojot to the devices.
+
+7. [Extra] Change the template to include a luminosity sensor.
+
+8. [Extra] Configure processing flows to detect, based on the luminosity sensors, if the container's doors are opened on unexpected areas.
+
+9. [Extra] Retrieve the history of the devices' data using the api.
+
+10. [Extra] Retrieve the devices' data in real time (https://dojot.github.io/data-broker/apiary_latest.html#websockets)
+
+
+TIP: If you want to stop dojot's microservices, run:
+
+
+Note: But if you stop dojot, you will lose all settings for template, device, flows and beyond history. In order not to ask for the template, device, flows settings, see more about importing and exporting at: https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html#import-and-export
+
+``` sh
+cd docker-compose
+sudo docker-compose down
+cd -
+```
+
+### Task 2: Develop an iot-agent for the water quality monitoring use case
 
 First of all, you need clone the docker-compose repository, see more in https://dojotdocs.readthedocs.io/en/v0.4.2/installation-guide.html#installation:
 
@@ -166,13 +244,6 @@ Wait for some seconds and run:
 sudo docker ps -a
 ```
 
-All dojot's microservices should be running. If you want to stop them, run:
-
-``` sh
-cd docker-compose
-sudo docker-compose down
-cd -
-```
 
 The goal of doing this task is to learn how to develop an iot-agent microservice. This is REQUIRED to integrate a device not supported by dojot.
 
