@@ -214,13 +214,13 @@ To accomplish this task, do the following sub-tasks:
 
 9. [Extra] Retrieve the history of the devices' data using the api.
 
-10. [Extra] Retrieve the devices' data in real time (https://dojot.github.io/data-broker/apiary_latest.html#websockets)
+10. [Extra] Retrieve the devices' data in real time (https://dojot.github.io/data-broker/apiary_v0.4.2.html#websockets)
 
 
 TIP: If you want to stop dojot's microservices, run:
 
 
-Note: But if you stop dojot, you will lose all settings for template, device, flows and beyond history. In order not to ask for the template, device, flows settings, see more about importing and exporting at: https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html#import-and-export
+Note: But if you stop dojot, you will lose all settings for template, device, flows and history data. In order not to lose the settings of template, device, flows, see more about import and export at: https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html#import-and-export
 
 ``` sh
 cd docker-compose
@@ -351,7 +351,7 @@ Check the logs to see if it's running.
 Create the template and devices for the water quality monitoring use case. Then, generate some
 HTTP messages and validate if they are associated with the corresponding devices.
 
-### Task 2: Develop a function node for the water quality monitoring use case
+### Task 3: Develop a function node for the water quality monitoring use case
 
 The goal here is to learn how to develop function nodes to extend the flowbroker microservice.
 
