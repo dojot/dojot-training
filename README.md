@@ -5,35 +5,29 @@ This repository is the workspace for the dojot's training.
 
 Here, you'll find instructions and recipes to support you.
 
-> This documentation contains some tags that are replaced when you run the setup.sh to set your workspace. So, after running this script, don't forget to reload the documentation.
-
 ## Table of Contents
 
 * [dojot-training](#dojot-training)
-  * [About](#about)
-  * [Table of Contents](#table-of-contents)
   * [Prerequisites](#prerequisites)
   * [Setting up your Ubuntu machine](#setting-up-your-ubuntu-machine)
       * [Docker](#docker)
-      * [Allowing an insecure registry](#allowing-an-insecure-registry)
       * [Docker Compose](#docker-compose)
       * [Git](#git)
-      * [JQ](#jq)
-      * [MQTT Client](#mqtt-client)
       * [HTTP Client](#http-client)
+      * [JQ](#json-processor-command-line)
+      * [MQTT Client](#mqtt-client)
       * [Javascript Editor](#javascript-editor)
   * [<strong>Hands-on</strong>](#hands-on)
   * [Use Cases](#use-cases)
       * [Cold-chain monitoring](#cold-chain-monitoring)
       * [Water quality monitoring](#water-quality-monitoring)
   * [Tasks](#tasks)
-      * [Task 1: Start dojot's microservices for the cold-chain monitoring use case](#task-1-start-dojots-microservices-for-the-cold-chain-monitoring-use-case)
-      * [Task 2: Configure and simulate the cold-chain monitoring use case](#task-2-configure-and-simulate-the-cold-chain-monitoring-use-case)
-      * [Task 3: Develop an iot-agent for the water quality monitoring use case](#task-3-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
+      * [Task 1: Configure and simulate the cold-chain monitoring use case](#task-1-configure-and-simulate-the-cold-chain-monitoring-use-case)
+      * [Task 2: Develop an iot-agent for the water quality monitoring use case](#task-2-develop-an-iot-agent-for-the-water-quality-monitoring-use-case)
         * [Step 1: Start a dummy iotagent-http](#step-1-start-a-dummy-iotagent-http)
         * [Step 2: Implement your iotagent-http for the water quality monitoring use case](#step-2-implement-your-iotagent-http-for-the-water-quality-monitoring-use-case)
         * [Step 3: Test your iotagent-http](#step-3-test-your-iotagent-http)
-      * [Task 4: Develop a function node for the water quality monitoring use case](#task-4-develop-a-function-node-for-the-water-quality-monitoring-use-case)
+      * [Task 3: Develop a function node for the water quality monitoring use case](#task-3-develop-a-function-node-for-the-water-quality-monitoring-use-case)
         * [Step 1: Load a stub of the decoder node into flowbroker](#step-1-load-a-stub-of-the-decoder-node-into-flowbroker)
         * [Step 2: Implement the decoder logic](#step-2-implement-the-decoder-logic)
         * [Step 3: Test your decoder node](#step-3-test-your-decoder-node)
@@ -42,7 +36,7 @@ Here, you'll find instructions and recipes to support you.
 
 To do the tasks, you will need:
 
-- A machine with Ubuntu 18.04 with at least 4GB RAM
+- A machine with Ubuntu 18.04 or 20.04 with at least 4GB RAM
 
 - User with sudo permissions
 
@@ -54,63 +48,33 @@ To do the tasks, you will need:
 
 - Git
 
+- HTTP Client
+
 - JQ
 
 - MQTT Client
-
-- HTTP Client
 
 - JavaScript Editor
 
 ## Setting up your Ubuntu machine
 
 ### Docker
-Instructions to install docker on Ubuntu can be found at https://docs.docker.com/install/linux/docker-ce/ubuntu/. Basically, you need to run:
+Instructions to install docker on Ubuntu can be found at [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
+
+Checking docker version:
 
 ``` sh
-sudo apt-get remove docker docker-engine docker.io
-​sudo apt-get update
-sudo apt-get install \
-apt-transport-https \
-ca-certificates \
-curl \
-software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo apt-key fingerprint 0EBFCD88
-sudo add-apt-repository \
-"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-$(lsb_release -cs) \
-stable"
-sudo apt-get update
-sudo apt-get install docker-ce
-```
-
-### Allowing an insecure registry
-
-This step is only required for a private docker registry without public certificates.
-Ask your tutor if you really need to run the following steps.
-
-1. Create or modify /etc/docker/daemon.json
-
-``` sh
-{
-  "insecure-registries": [ "<private-docker-registry-ip>:<private-docker-registry-port>" ]
-}
-```
-
-2. Restart docker daemon
-
-``` sh
-sudo service docker restart
+sudo docker -v
 ```
 
 ### Docker Compose
 
-Instructions to install docker compose on Ubuntu can be found at [Docker Compose Install](https://docs.docker.com/compose/install/). Basically, you need to run:
+Instructions to install docker compose on Ubuntu can be found at [Docker Compose Install](https://docs.docker.com/compose/install/).
+
+Checking docker-compose version:
 
 ``` sh
-sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+sudo docker-compose -v
 ```
 
 ### Git
@@ -121,9 +85,19 @@ To install git:
 sudo apt-get install git
 ```
 
-### JQ
+### HTTP Client
 
-To install jq:
+Our suggestion is to use curl, but if you are familiar with other tools like postman, feel free to use them. To install curl:
+
+``` sh
+sudo apt-get install curl
+```
+
+If you use Postman, we have the collection and the environment used in this training available in the [`postman`](./postman) directory.
+
+### JSON processor (command-line)
+
+Our suggestion is to use JQ with Curl. To install JQ:
 
 ``` sh
 sudo apt-get install jq
@@ -137,13 +111,7 @@ Our suggestion is to use mosquitto clients, but if you are familiar with other c
 sudo apt-get install mosquitto-clients
 ```
 
-### HTTP Client
-
-Our suggestion is to use curl, but if you are familiar with other tools like postman, feel free to use them. To install curl:
-
-``` sh
-sudo apt-get install curl
-```
+NOTE: Some Linux distributions, Debian-based Linux distributions in particular, have two packages for mosquitto - one containing tools to access it (i.e. mosquitto_pub and mosquitto_sub for publishing messages and subscribing to topics) and another one containing the MQTT broker too. In this training, only the tools from package mosquitto-clients on Debian-based Linux distributions are going to be used. Please check if MQTT broker is not running before starting dojot (by running commands like ps aux | grep mosquitto) to avoid port conflicts.
 
 ### Javascript Editor
 
@@ -186,27 +154,33 @@ A sample message is given bellow:
 ```
 POST /chemsen/readings
 {
-  "timestamp": 1543449992,            - unix timestamp: 11/29/2018 - 12:06am
-   "data": 656,                       - pollutant = 00000010b = 2 | oxygenation = 10010000b = 144
-   "device": "PINHR_003"              - unique device identifier
+  "timestamp": 1543449992,           - unix timestamp: 11/29/2018 - 12:06am
+  "data": 656,                       - pollutant = 00000010b = 2 | oxygenation = 10010000b = 144
+  "device": "PINHR_003"              - unique device label identifier
 }
 ```
 
+Before starting, take a look at:
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/using-api-interface.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/flow.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/iotagent-architecture.html
+
+- https://dojotdocs.readthedocs.io/en/v0.4.2/components-and-apis.html
+
+
 ## Tasks
 
-### Task 1: Start dojot's microservices for the cold-chain monitoring use case
+### Task 1: Configure and simulate the cold-chain monitoring use case
 
-First of all, you need to generate the docker-compose.yml with dojot's microservices. For this, run:
-
-``` sh
-./setup.sh -m mqtt
-```
-
-This will create docker-compose/docker-compose.yml with mqtt iot-agent enabled.
-
-Then, start the dojot's microsevices:
+First of all, you need clone the docker-compose repository, see more in https://dojotdocs.readthedocs.io/en/v0.4.2/installation-guide.html#installation:
 
 ``` sh
+git clone https://github.com/dojot/docker-compose
 cd docker-compose
 sudo docker-compose up -d
 cd -
@@ -215,30 +189,10 @@ cd -
 Wait for some seconds and run:
 
 ``` sh
-sudo docker ps
+sudo docker ps -a
 ```
 
-All dojot's microservices should be running. If you want to stop them, run:
-
-``` sh
-cd docker-compose
-sudo docker-compose down
-cd -
-```
-
-### Task 2: Configure and simulate the cold-chain monitoring use case
-
-The goal of doing this task is to learn how to use dojot's gui and api. 
-
-Before starting, take a look at:
-
-- https://dojotdocs.readthedocs.io/en/latest/using-web-interface.html
-
-- https://dojotdocs.readthedocs.io/en/latest/using-api-interface.html
-
-- https://dojotdocs.readthedocs.io/en/latest/flow.html
-
-- https://dojotdocs.readthedocs.io/en/latest/components-and-apis.html#exposed-apis
+The goal of doing this task is to learn how to use dojot's gui and api.
 
 To accomplish this task, do the following sub-tasks:
 
@@ -260,13 +214,41 @@ To accomplish this task, do the following sub-tasks:
 
 9. [Extra] Retrieve the history of the devices' data using the api.
 
-10. [Extra] Retrieve the devices' data in real time (https://dojot.github.io/data-broker/apiary_latest.html#websockets)
+10. [Extra] Retrieve the devices' data in real time (https://dojot.github.io/data-broker/apiary_v0.4.2.html#websockets)
 
-### Task 3: Develop an iot-agent for the water quality monitoring use case
+
+TIP: If you want to stop dojot's microservices, run:
+
+``` sh
+cd docker-compose
+sudo docker-compose down
+cd -
+```
+
+Note: But if you stop dojot, you will lose all settings for template, device, flows and history data. In order not to lose the settings of template, device, flows, see more about import and export at: https://dojotdocs.readthedocs.io/en/v0.4.2/using-web-interface.html#import-and-export
+
+
+
+### Task 2: Develop an iot-agent for the water quality monitoring use case
+
+First of all, you need clone the docker-compose repository, see more in https://dojotdocs.readthedocs.io/en/v0.4.2/installation-guide.html#installation:
+
+``` sh
+git clone https://github.com/dojot/docker-compose
+cd docker-compose
+sudo docker-compose up -d
+cd -
+```
+Wait for some seconds and run:
+
+``` sh
+sudo docker ps -a
+```
+
 
 The goal of doing this task is to learn how to develop an iot-agent microservice. This is REQUIRED to integrate a device not supported by dojot.
 
-Before starting, go to https://github.com/dojot/iotagent-nodejs and take a look at the documentation.
+Take a look at https://github.com/dojot/iotagent-nodejs
 
 If you dont't know what to do, don't panic; just follow the steps listed bellow.
 
@@ -280,25 +262,47 @@ There is a dummy iotagent-http at samples/iotagent-base. There, you will find:
 ├── package.json      - javascript dependencies
 ├── README.md         - README file
 └── src
-    └── index.js       - the microservice code
+    └── index.js      - the microservice code
 
 ```
 
-First, let's start this microservice:
+First, let's build the docker image for this microservice:
 
 ``` sh
-cd samples/iotagent-base
-sudo docker build -t dojot-training/iotagent-http .
+cd dojot-training/samples/iotagent-base
+sudo docker build -t iotagent-http .
 cd -
 ```
 
-Then you need to regenerate the docker-compose.yml, to include this new microservice, and
-start it:
+Then you need to add the service `iotagent-http:`, as below, in the file docker-compose.yml inside `services:` and start it:
+
+```
+  iotagent-http:
+      image: iotagent-http
+      depends_on:
+        - kafka
+        - data-broker
+        - auth
+      ports:
+        - 3124:3124
+      restart: always
+      environment:
+        SERVER_PORT: 3124
+      logging:
+        driver: json-file
+        options:
+          max-size: 100m
+```
+
+*NOTE: Here we are exposing port 3124 to be accessed without going through the api gateway, kong, that is, without authorization, the correct thing is to create a route in kong and remove `ports: - 3124: 3124` from the code above. About routes in kong, see more at https://dojotdocs.readthedocs.io/en/v0.4.2/internal-communication.html#auth-api-gateway-kong. And in addition a Tip: You can simply add the route `http://iotagent-http:3124`in the `kong.config.sh` following the pattern of what already exists, this file is inside the dojot `docker-compose` repository ( don't forget to call the `authConfig` function for the route to be authenticated). Besides that for changes in `kong.config.sh` to be applied you need to restart the service with `sudo docker-compose restart kong-config`.*
+
+
+Now let's open the file `docker-compose.yml` and add the service `iotagent-http:` from the code above:
 
 ``` sh
-./setup.sh -m http
 cd docker-compose
-sudo docker-compose up --remove-orphans -d
+code docker-compose.yml # vi docker-compose.yml, pico docker-compose.yml or another editor
+sudo docker-compose up -d iotagent-http
 cd -
 ```
 
@@ -306,7 +310,7 @@ Wait some seconds and check its log:
 
 ``` sh
 cd docker-compose
-sudo docker-compose logs -f iotagent-http
+sudo docker-compose logs -t -f iotagent-http
 cd -
 ```
 
@@ -317,7 +321,7 @@ To send a HTTP message to this agent, run:
 ``` sh
 DOJOT_HOST="127.0.0.1"
 IOTAGENT_PORT=3124
-curl -X POST ${DOJOT_HOST}:${IOTAGENT_PORT}/test/data \
+curl -X POST ${DOJOT_HOST}:${IOTAGENT_PORT}/chemsen/readings \
 -H 'Content-Type:application/json' \
 -d '{ "timestamp": 1543449992, "data": 646, "device": "PINHR_003" }'
 ```
@@ -327,17 +331,17 @@ if you check the logs again, you should see that the message has been received.
 #### Step 2: Implement your iotagent-http for the water quality monitoring use case
 
 Now, you need to customize the dummy iotagent-http for handling the use case.
-Openning the file iotagent-http/src/index.js, you  will see a list of TODOs.
+Openning the file samples/iotagent-http/src/index.js, you  will see a list of TODOs.
 You just need to implement them.
 
 Once you've finished, you need to rebuild and restart the service:
 
 ``` sh
-cd samples/iotagent-base
-sudo docker build -t dojot-training/iotagent-http .
+cd dojot-training/samples/iotagent-base
+sudo docker build -t iotagent-http .
 cd -
 cd docker-compose
-sudo docker-compose up -d
+sudo docker-compose up -d iotagent-http
 cd -
 ```
 
@@ -348,7 +352,7 @@ Check the logs to see if it's running.
 Create the template and devices for the water quality monitoring use case. Then, generate some
 HTTP messages and validate if they are associated with the corresponding devices.
 
-### Task 4: Develop a function node for the water quality monitoring use case
+### Task 3: Develop a function node for the water quality monitoring use case
 
 The goal here is to learn how to develop function nodes to extend the flowbroker microservice.
 
@@ -380,7 +384,7 @@ sudo docker login
 First, build the container:
 
 ``` sh
-cd samples/decoder-node-base
+cd dojot-training/samples/decoder-node-base
 sudo docker build -t  <your dockerHub username>/decoder-node<unique-id> .
 cd -
 ```
@@ -388,9 +392,7 @@ cd -
 Then, push it to the docker hub:
 
 ``` sh
-cd samples/decoder-node-base
 sudo docker push  <your dockerHub username>/decoder-node<unique-id>
-cd -
 ```
 
 Now, load the node into the flowbroker:
@@ -417,14 +419,14 @@ Now, you should be able to access the decoder node at the dojot's gui.
 
 #### Step 2: Implement the decoder logic
 
-Openning the file decoder-node-base/src/index.js, you  will see a TODO.
-You just need to implement it.
+Openning the file samples/decoder-node-base/src/index.js, you  will see a TODO.
+You just need to implement it. See about bitwise in https://www.w3schools.com/js/js_bitwise.asp .
 
 Once you've finished, you need to rebuild the container and push it to the registry.
 So, run:
 
 ``` sh
-cd samples/decoder-node-base
+cd dojot-training/samples/decoder-node-base
 sudo docker build -t <your dockerHub username>/decoder-node<unique-id> .
 sudo docker push <your dockerHub username>/decoder-node<unique-id>
 cd -
@@ -443,7 +445,22 @@ curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "c
 
 ```sh
 sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
+```
 
+##### Tip: To kill the remote node's container if it becomes active even after the dojot stops:
+
+To check if containers are still active:
+
+``` sh
+sudo docker ps -a
+```
+
+Killing the  remote node's container:
+
+**Avoid using this, use this only if really necessary.**
+
+```sh
+sudo docker rm -f $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
 ```
 
 #### Step 3: Test your decoder node

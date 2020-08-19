@@ -23,11 +23,11 @@ curl -X GET ${DOJOT_URL}/stream/socketio \
 curl -X POST ${DOJOT_URL}/template \
 -H "Authorization: Bearer ${JWT}" \
 -H 'Content-Type:application/json' \
--d '{"label": "ColdChainTemplate", 
+-d '{"label": "ColdChainTemplate",
      "attrs": [
-                {"label": "protocol", "type": "meta", 
+                {"label": "protocol", "type": "meta",
                  "value_type": "string", "static_value": "mqtt"},
-                {"label": "truckID", "type": "static", 
+                {"label": "truckID", "type": "static",
                  "value_type": "string", "static_value": "undefined"},
                 {"label": "temperature", "type": "dynamic",  "value_type": "float"},
                 {"label": "location", "type": "dynamic",  "value_type": "geo:point"},
@@ -60,7 +60,7 @@ curl -X POST ${DOJOT_URL}/device \
 -H "Authorization: Bearer ${JWT}" \
 -H 'Content-Type:application/json' \
 -d '{
-        "templates": ["58"], 
+        "templates": ["58"],
         "label": "Truck-1"
      }'
 
@@ -72,14 +72,14 @@ curl -X POST ${DOJOT_URL}/device \
 -H 'Content-Type:application/json' \
 -d '{
         "templates": ["58"],
-        "label": "Truck-2", 
+        "label": "Truck-2",
         "attrs": [
                     {
-                        "id": 268, 
-                        "label": "truckID", 
-                        "static_value": "2", 
-                        "template_id": "58", 
-                        "type": "static", 
+                        "id": 268,
+                        "label": "truckID",
+                        "static_value": "2",
+                        "template_id": "58",
+                        "type": "static",
                         "value_type": "string"
                      }
                  ]
