@@ -385,7 +385,6 @@ First, build the container:
 
 ``` sh
 cd dojot-training/samples/decoder-node-base
-# Always change the name of the docker image, to force the update and see your changes reflected.
 sudo docker build -t  <your dockerHub username>/decoder-node<unique-id> .
 cd -
 ```
@@ -425,6 +424,8 @@ You just need to implement it. See about bitwise in https://www.w3schools.com/js
 
 Once you've finished, you need to rebuild the container and push it to the registry.
 So, run:
+
+NOTE: Always change the <unique-id> of the docker image, to force the update and see your changes reflected.
 
 ``` sh
 cd dojot-training/samples/decoder-node-base
