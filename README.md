@@ -449,6 +449,15 @@ curl -X POST -H "Authorization: Bearer ${JWT}" ${DOJOT_HOST}/flows/v1/node -H "c
 sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
 ```
 
+
+##### Tip: To view the logs from flowbroker run:
+
+```sh
+cd docker-compose
+sudo docker-compose logs -f -t flowbroker
+cd -
+```
+
 ##### Tip: To kill the remote node's container if it becomes active even after the dojot stops:
 
 To check if containers are still active:
