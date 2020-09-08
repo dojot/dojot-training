@@ -385,7 +385,6 @@ First, build the container:
 
 ``` sh
 cd dojot-training/samples/decoder-node-base
-# Always change the name of the docker image, to force the update and see your changes reflected.
 sudo docker build -t  <your dockerHub username>/decoder-node<unique-id> .
 cd -
 ```
@@ -434,6 +433,8 @@ cd -
 ```
 
 Now, reloads the node into the flowbroker:
+
+NOTE: Always change the name of the docker image, to force the update and see your changes reflected.
 
 ``` sh
 DOJOT_HOST="http://localhost:8000"
