@@ -425,6 +425,8 @@ You just need to implement it. See about bitwise in https://www.w3schools.com/js
 Once you've finished, you need to rebuild the container and push it to the registry.
 So, run:
 
+NOTE: Always change the <unique-id> of the docker image, to force the update and see your changes reflected.
+
 ``` sh
 cd dojot-training/samples/decoder-node-base
 sudo docker build -t <your dockerHub username>/decoder-node<unique-id> .
@@ -433,8 +435,6 @@ cd -
 ```
 
 Now, reloads the node into the flowbroker:
-
-NOTE: Always change the name of the docker image, to force the update and see your changes reflected.
 
 ``` sh
 DOJOT_HOST="http://localhost:8000"
