@@ -397,7 +397,7 @@ sudo docker push  <your dockerHub username>/decoder-node:<unique-id>
 
 Now, load the node into the flowbroker:
 
-ATTENTION: The `id` to add the node via API (when request `/flows/v1/node`) must be the same as `name` and `id` defined in `getMetadata` in the class that extends `dojot.DataHandlerBase`. And within the html called in the `getNodeRepresentationPath` method also in the class that extends `dojot.DataHandlerBase` the references `data-template-name=`, `data-help-name=`, `registerType(..` ,  and `RED._("decoder-node:...` must have this same id/name.
+ATTENTION: The `id` to add the node via API (when request `/flows/v1/node`) must be the same as `name` and `id` defined in `getMetadata` in the class that extends `dojot.DataHandlerBase`. And within the html called in the `getNodeRepresentationPath` method also in the class that extends `dojot.DataHandlerBase` the references `data-template-name=`, `data-help-name=`, `registerType(..` ,  and `RED._("...` must have this same id/name.
 
 ```sh
 DOJOT_HOST="http://localhost:8000"
