@@ -25,11 +25,11 @@ class DataHandler extends dojot.DataHandlerBase {
         return {
             // ID can actually be any unique human-friendly string
             // on proper node-red modules it is "$module/$name"
-            'id': 'sample/decoder-node',
+            'id': 'decoder-node',
             // This is usually the name of the node
             'name': 'decoder-node',
             // This is usually the name of the node (as in npm) module
-            'module': 'decoder-node',
+            'module': 'decoder-node-module',
             'version': '1.0.0',
         };
     }
