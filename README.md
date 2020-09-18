@@ -397,6 +397,8 @@ sudo docker push  <your dockerHub username>/decoder-node<unique-id>
 
 Now, load the node into the flowbroker:
 
+ATTENTION: The `id` to add the node via API must be the same as `name` and `module` defined in `getMetadata` in the class that extends `dojot.DataHandlerBase`.
+
 ```sh
 DOJOT_HOST="http://localhost:8000"
 JWT=$(curl -s -X POST ${DOJOT_HOST}/auth -H 'Content-Type:application/json' -d '{"username": "admin", "passwd" : "admin"}' | jq -r ".jwt")
@@ -426,8 +428,6 @@ Once you've finished, you need to rebuild the container and push it to the regis
 So, run:
 
 NOTE: Always change the `<unique-id>` of the docker image, to force the update and see your changes reflected.
-
-ATTENTION: The `id` to add the node via API must be the same as `name` and `module` defined in `getMetadata` in the class that extends `dojot.DataHandlerBase`.
 
 ``` sh
 cd dojot-training/samples/decoder-node-base
