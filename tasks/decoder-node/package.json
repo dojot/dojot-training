@@ -9,6 +9,6 @@
   "author": "newbie",
   "license": "GPL-3.0",
   "dependencies": {
-    "@dojot/flow-node": "^3.0.0-alpha.5"
+    "@dojot/flow-node": "3.0.0-alpha.5"
   }
 }
