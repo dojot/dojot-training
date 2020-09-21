@@ -18,11 +18,11 @@ In decoder node, you will find:
 
 Build the docker image:
 ```sh
-docker build -t <your dockerHub username>/decoder-node<unique-id> .
+docker build -t <your dockerHub username>/decoder-node:<unique-id> .
 ```
 Publish it on your DockerHub:
 ```sh
-docker push <your dockerHub username>/decoder-node<unique-id>
+docker push <your dockerHub username>/decoder-node:<unique-id>
 ```
 
 Acquire a Dojot's token:
@@ -41,7 +41,7 @@ sudo apt-get install curl
 
 Add the node to Dojot.
 ```sh
-curl -H "Authorization: Bearer ${JWT}" http://localhost:8000/flows/v1/node -H 'content-type: application/json' -d '{"image": "<your dockerHub username>/decoder-node<unique-id>", "id":"decoder-node"}'
+curl -H "Authorization: Bearer ${JWT}" http://localhost:8000/flows/v1/node -H 'content-type: application/json' -d '{"image": "<your dockerHub username>/decoder-node:<unique-id>", "id":"decoder-node"}'
 ```
 
 To remove the node in Dojot.
@@ -51,7 +51,7 @@ curl -X DELETE -H "Authorization: Bearer ${JWT}" http://localhost:8000/flows/v1/
 ##### Tip: To view the logs from your remote node run:
 
 ```sh
-sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node<unique-id>")
+sudo docker logs -f -t $(sudo docker ps -aqf "ancestor=<your dockerHub username>/decoder-node:<unique-id>")
 ```
 
 Now the decoder node will be available on `decoders` category into the FlowBroker Dojot's interface.
@@ -60,3 +60,5 @@ Note: the DockerHub use is optional, you can use a private docker registry inste
 
 Note2: All commands considers that you are running Dojot locally, if it is not
 the case, please, adapt them to refect your scenario.
+
+ATTENTION: The `id` to add the node via API (when request `/flows/v1/node`) must be the same as `name` and `id` defined in `getMetadata` in the class that extends `dojot.DataHandlerBase`. And within the html called in the `getNodeRepresentationPath` method also in the class that extends `dojot.DataHandlerBase` the references inside the html `data-template-name=`, `data-help-name=`, `registerType(..` ,  and `RED._("...` must have this same `id`/`name`.
