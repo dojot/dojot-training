@@ -1,0 +1,30 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "runtimeExecutable":"node",
+      "runtimeVersion": "12.21.0",
+      "runtimeArgs": ["--unhandled-rejections=strict"],
+      "program": "${workspaceFolder}/src/index.js",
+      "env": {
+        "LOG_LEVEL": "info",
+        "SERVER_PORT": "3939",
+        "DATA_BROKER_URL": "http://localhost:3838",
+        "AUTH_URL": "http://localhost:5858",
+        "DEVICE_MANAGER_URL": "http://localhost:5757",
+        "KAFKA_HOSTS": "kafka:9092", // needs to include an alias in the '/etc/hosts' file
+      },
+      "console": "internalConsole",
+      "outputCapture": "std"
+    }
+  ]
+}

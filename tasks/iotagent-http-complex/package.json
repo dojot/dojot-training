@@ -1,0 +1,35 @@
+{
+  "name": "iotagent-http",
+  "version": "1.0.0",
+  "description": "a custom iotagent-http",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Thiago de Paula Ferreira",
+    "email": "thiagodepaulaferreira@gmail.com",
+    "url": "https://github.com/thiagodpf"
+  },
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "dependencies": {
+    "@dojot/dojot-module-logger": "^0.1.0",
+    "@dojot/iotagent-nodejs": "^2.2.2",
+    "@dojot/microservice-sdk": "^0.1.9",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-request-id": "^1.4.1",
+    "http-status-codes": "^2.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}
