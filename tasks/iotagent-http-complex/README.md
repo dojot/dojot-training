@@ -20,8 +20,17 @@ _build-essential_ library. It is likely that in order to compile the
 `node-rdkafka` _node_module_ it will be necessary to install the
 _gzip compression_ library too. In this case, the most advisable is to study the
 dependencies declared in the [Dockerfile](./Dockerfile) file to have an idea of
-what is needed (`sudo apt-get install -y build-essential node-gyp make ca-certificates gzip`
-in the case of Linux distributions based on Debian).
+what is needed.
+
+~~~shell
+$ # in the case of Linux distributions based on Debian:
+$ sudo apt-get install -y \
+               build-essential \
+               node-gyp \
+               make \
+               ca-certificates \
+               gzip
+~~~
 
 To install the project's dependencies and generate the _node_modules_ folder,
 there is no secret, just run the [NPM](https://www.npmjs.com/) command in the
