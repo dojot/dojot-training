@@ -15,7 +15,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "argparse": "^1.0.10",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "socket.io-client": "^2.1.1"
   }
 }
