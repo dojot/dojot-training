@@ -14,7 +14,7 @@
   "author": "newbie",
   "license": "GPL-3.0",
   "dependencies": {
-    "@dojot/iotagent-nodejs": "^2.1.0-beta.9",
+    "@dojot/iotagent-nodejs": "^2.2.0",
     "express": "^4.16.4"
   }
 }
